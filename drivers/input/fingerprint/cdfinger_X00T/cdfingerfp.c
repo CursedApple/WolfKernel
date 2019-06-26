@@ -62,6 +62,7 @@ struct cdfinger_key_map {
 };
 
 #define CDF_RESET_US 1000
+#define HOLD_TIME 500
 
 #define CDFINGER_IOCTL_MAGIC_NO 0xFB
 #define CDFINGER_INIT _IOW(CDFINGER_IOCTL_MAGIC_NO, 0, uint8_t)
@@ -276,15 +277,6 @@ static int cdfinger_release(struct inode *inode, struct file *file)
 	return 0;
 }
 
-static inline void cdfinger_wake_lock(struct cdfingerfp_data *pdata, int arg)
-{
-	if (arg) {
-		__pm_stay_awake(&pdata->cdfinger_lock);
-	} else {
-		__pm_relax(&pdata->cdfinger_lock);
-	}
-}
-
 static inline void cdfinger_async_report(void)
 {
 	struct cdfingerfp_data *cdfingerfp = g_cdfingerfp_data;
@@ -295,7 +287,7 @@ static irqreturn_t cdfinger_eint_handler(int irq, void *handle)
 {
 	struct cdfingerfp_data *pdata = handle;
 	if (atomic_read(&pdata->irq_enable_status)) {
-		cdfinger_wake_lock(pdata, 1);
+		__pm_wakeup_event(&pdata->cdfinger_lock, HOLD_TIME);
 		cdfinger_async_report();
 	}
 
@@ -428,7 +420,10 @@ static long cdfinger_ioctl(struct file *filp, unsigned int cmd,
 		err = cdfinger_init_irq(cdfinger);
 		break;
 	case CDFINGER_WAKE_LOCK:
-		cdfinger_wake_lock(cdfinger, arg);
+		if (arg)
+			__pm_wakeup_event(&cdfinger->cdfinger_lock, HOLD_TIME);
+		else
+			__pm_relax(&cdfinger->cdfinger_lock);
 		break;
 	case CDFINGER_RELEASE_DEVICE:
 		isInit = 0;
