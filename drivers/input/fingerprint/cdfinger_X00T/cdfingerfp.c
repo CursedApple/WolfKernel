@@ -61,6 +61,8 @@ struct cdfinger_key_map {
 	unsigned int code;
 };
 
+#define CDF_RESET_US 1000
+
 #define CDFINGER_IOCTL_MAGIC_NO 0xFB
 #define CDFINGER_INIT _IOW(CDFINGER_IOCTL_MAGIC_NO, 0, uint8_t)
 #define CDFINGER_GETIMAGE _IOW(CDFINGER_IOCTL_MAGIC_NO, 1, uint8_t)
@@ -237,7 +239,7 @@ static int cdfinger_parse_dts(struct device *dev,
 static int cdfinger_power_on(struct cdfingerfp_data *pdata)
 {
 	gpio_direction_output(pdata->pwr_num, 1);
-	mdelay(1);
+	usleep_range(1000,1100);
 	gpio_set_value(pdata->reset_num, 1);
 	msleep(10);
 
@@ -247,7 +249,7 @@ static int cdfinger_power_on(struct cdfingerfp_data *pdata)
 static int cdfinger_power_off(struct cdfingerfp_data *pdata)
 {
 	gpio_direction_output(pdata->pwr_num, 0);
-	mdelay(1);
+	usleep_range(1000,1100);
 
 	return 0;
 }
@@ -300,14 +302,14 @@ static irqreturn_t cdfinger_eint_handler(int irq, void *handle)
 	return IRQ_HANDLED;
 }
 
-static inline void cdfinger_reset(struct cdfingerfp_data *pdata, int ms)
+static inline void cdfinger_reset(struct cdfingerfp_data *pdata)
 {
 	gpio_set_value(pdata->reset_num, 1);
-	mdelay(ms);
+	usleep_range(CDF_RESET_US, CDF_RESET_US + 100);
 	gpio_set_value(pdata->reset_num, 0);
-	mdelay(ms);
+	usleep_range(CDF_RESET_US, CDF_RESET_US + 100);
 	gpio_set_value(pdata->reset_num, 1);
-	mdelay(ms);
+	usleep_range(CDF_RESET_US, CDF_RESET_US + 100);
 }
 
 static int cdfinger_init_irq(struct cdfingerfp_data *pdata)
@@ -440,21 +442,19 @@ static long cdfinger_ioctl(struct file *filp, unsigned int cmd,
 		err = cdfinger_power_off(cdfinger);
 		break;
 	case CDFINGER_RESET:
-		cdfinger_reset(cdfinger, 1);
+		cdfinger_reset(cdfinger);
 		break;
 	case CDFINGER_REPORT_KEY:
 		err = cdfinger_report_key(cdfinger, arg);
 		break;
 	case CDFINGER_NEW_KEYMODE:
 		isInKeyMode = 0;
-		cdfinger_reset(cdfinger,1);
 		break;
 	case CDFINGER_INITERRUPT_MODE:
 		isInKeyMode = 1; // not key mode
-		cdfinger_reset(cdfinger, 1);
 		break;
 	case CDFINGER_HW_RESET:
-		cdfinger_reset(cdfinger, arg);
+		cdfinger_reset(cdfinger);
 		break;
 	case CDFINGER_GET_STATUS:
 		err = screen_status;
