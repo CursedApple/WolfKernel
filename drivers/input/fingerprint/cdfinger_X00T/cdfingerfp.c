@@ -50,6 +50,8 @@
 #include <linux/regulator/consumer.h>
 #include <linux/fb.h>
 #include <linux/notifier.h>
+#include <linux/cpu_input_boost.h>
+#include <linux/devfreq_boost.h>
 
 typedef struct key_report {
 	int key;
@@ -290,6 +292,9 @@ static irqreturn_t cdfinger_eint_handler(int irq, void *handle)
 		__pm_wakeup_event(&pdata->cdfinger_lock, HOLD_TIME);
 		cdfinger_async_report();
 	}
+
+	cpu_input_boost_kick_wake();
+	devfreq_boost_kick_wake(DEVFREQ_MSM_CPUBW);
 
 	return IRQ_HANDLED;
 }

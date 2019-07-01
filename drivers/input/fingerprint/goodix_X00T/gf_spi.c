@@ -52,6 +52,9 @@
 #include <linux/platform_device.h>
 #endif
 
+#include <linux/cpu_input_boost.h>
+#include <linux/devfreq_boost.h>
+
 #define VER_MAJOR   1
 #define VER_MINOR   2
 #define PATCH_LEVEL 1
@@ -500,6 +503,8 @@ static irqreturn_t gf_irq(int irq, void *handle)
 	if (gf_dev->async)
 		kill_fasync(&gf_dev->async, SIGIO, POLL_IN);
 #endif
+	cpu_input_boost_kick_wake();
+	devfreq_boost_kick_wake(DEVFREQ_MSM_CPUBW);
 
 	return IRQ_HANDLED;
 }
