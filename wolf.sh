@@ -85,11 +85,11 @@ MAKE_STATEMENT=make
 # Menuconfig configuration
 # ================
 # If -no-menuconfig flag is present we will skip the kernel configuration step.
-# Make operation will use X00T_defconfig directly.
+# Make operation will use wolf_defconfig directly.
 if [[ "$*" == *"-no-menuconfig"* ]]
 then
   NO_MENUCONFIG=1
-  MAKE_STATEMENT="$MAKE_STATEMENT KCONFIG_CONFIG=./arch/arm64/configs/X00T_defconfig"
+  MAKE_STATEMENT="$MAKE_STATEMENT KCONFIG_CONFIG=./arch/arm64/configs/wolf_defconfig"
 fi
 
 if [[ "$@" =~ "mrproper" ]]; then
