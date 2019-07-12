@@ -32,10 +32,6 @@
 #include <linux/slab.h>
 #include <linux/display_state.h>
 
-/* cultivation version */
-#define CULTIVATION_VERSION_MAJOR	(1)
-#define CULTIVATION_VERSION_MINOR	(1)
-
 struct cpufreq_cultivation_cpuinfo {
 	struct timer_list cpu_timer;
 	struct timer_list cpu_slack_timer;
@@ -1484,4 +1480,3 @@ MODULE_AUTHOR("mydongistiny <jaysonedson@gmail.com>");
 MODULE_DESCRIPTION("'cpufreq_cultivation' - A cpufreq governor for "
 	"Latency sensitive workloads");
 MODULE_LICENSE("GPL");
-
