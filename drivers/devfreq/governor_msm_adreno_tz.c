@@ -379,18 +379,12 @@ static int tz_init(struct devfreq_msm_adreno_tz_data *priv,
 extern int adreno_idler(struct devfreq_dev_status stats, struct devfreq *devfreq,
 		 unsigned long *freq);
 #endif
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 #ifdef CONFIG_SIMPLE_GPU_ALGORITHM
 extern int simple_gpu_active;
 extern int simple_gpu_algorithm(int level, int *val,
 				struct devfreq_msm_adreno_tz_data *priv);
 #endif
->>>>>>> parent of 1b32a37c16e0... remove trash
-=======
->>>>>>> parent of 4cdaa8205b15... Revert "Merge tag 'v4.4.185' of https://source.codeaurora.org/quic/la/kernel/msm-4.4 into dexk5.1"
+
 static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 								u32 *flag)
 {

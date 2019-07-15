@@ -5,6 +5,13 @@
  * it under the terms of the GNU General Public License version 2 and
  * only version 2 as published by the Free Software Foundation.
  *
+ * This pr/*
+ * Copyright (c) 2012-2018, The Linux Foundation. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -1237,18 +1244,11 @@ static int get_args(uint32_t kernel, struct smq_invoke_ctx *ctx)
 	}
 	metalen = copylen = (size_t)&ipage[0];
 
-	/* calculate len requreed for copying */
-
 	/* allocate new local rpra buffer */
 	lrpralen = (size_t)&list[0];
 	if (lrpralen) {
 		err = fastrpc_buf_alloc(ctx->fl, lrpralen, ctx_attrs,
 				0, 0, &ctx->lbuf);
-
-	lrpralen = (u64)(uintptr_t)&list[0];
-	if (lrpralen) {
-		err = fastrpc_buf_alloc(ctx->fl, lrpralen,
-			ctx_attrs, 0, 0, &ctx->lbuf);
 		if (err)
 			goto bail;
 	}
@@ -1259,7 +1259,6 @@ static int get_args(uint32_t kernel, struct smq_invoke_ctx *ctx)
 	ctx->lrpra = lrpra;
 
 	/* calculate len required for copying */
-
 	for (oix = 0; oix < inbufs + outbufs; ++oix) {
 		int i = ctx->overps[oix]->raix;
 		uintptr_t mstart, mend;
