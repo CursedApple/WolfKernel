@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/include/lim_session.h
  * Copyright (c) 2012-2018 The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2012-2019 The Linux Foundation. All rights reserved.
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/include/lim_session.h
  *
  * Permission to use, copy, modify, and/or distribute this software for
  * any purpose with or without fee is hereby granted, provided that the
@@ -440,10 +444,13 @@ typedef struct sPESession       /* Added to Support BT-AMP */
 	/* Fast Transition (FT) */
 	tftPEContext ftPEContext;
 	bool isNonRoamReassoc;
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/include/lim_session.h
 #ifdef WLAN_FEATURE_11W
 	qdf_mc_timer_t pmfComebackTimer;
 	tComebackTimerInfo pmfComebackTimerInfo;
 #endif /* WLAN_FEATURE_11W */
+=======
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/include/lim_session.h
 	uint8_t  is_key_installed;
 	/* timer for reseting protection fileds at regular intervals */
 	qdf_mc_timer_t protection_fields_reset_timer;

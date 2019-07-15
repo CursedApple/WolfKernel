@@ -239,10 +239,17 @@
 };
 
 &qusb_phy0 {
+<<<<<<< HEAD
 	qcom,tune2-efuse-correction = <(-4)>;
 	qcom,tune2-efuse-correction-host = <(-1)>;
 	qcom,qusb-phy-init-seq = <0xc0 0x80
 				0x81 0x84
+=======
+	qcom,tune2-efuse-correction = <(-1)>;
+	qcom,tune2-efuse-correction-host = <(-1)>;
+	qcom,qusb-phy-init-seq = <0xc0 0x80
+				0xb1 0x84
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 				0x83 0x88
 				0xc7 0x8c
 				0x30 0x08
@@ -251,7 +258,11 @@
 				0x14 0x9c
 				0x9f 0x1c
 				0x00 0x18>;
+<<<<<<< HEAD
 	qcom,tune-factory-override = <0xC78351C0>;
+=======
+	qcom,tune-factory-override = <0xC783B1C0>;
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 };
 
 &mdss_mdp {
@@ -403,3 +414,13 @@
 	qcom,default-sink-caps = <5000 3000>, /* 5V @ 3A */
 				 <9000 3000>; /* 9V @ 3A */
 };
+<<<<<<< HEAD
+=======
+
+&pm660_bcl {
+	qcom,bcl-charger-mitigate-enable;
+	qcom,ibat-monitor {
+		qcom,soc-low-threshold = <5>;
+	};
+};
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f

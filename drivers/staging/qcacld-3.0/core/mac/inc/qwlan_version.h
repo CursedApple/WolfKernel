@@ -32,9 +32,16 @@
 #define QWLAN_VERSION_MAJOR            5
 #define QWLAN_VERSION_MINOR            1
 #define QWLAN_VERSION_PATCH            1
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/inc/qwlan_version.h
 #define QWLAN_VERSION_EXTRA            "C"
 #define QWLAN_VERSION_BUILD            71
 
 #define QWLAN_VERSIONSTR               "5.1.1.71C"
+=======
+#define QWLAN_VERSION_EXTRA            "E"
+#define QWLAN_VERSION_BUILD            73
+
+#define QWLAN_VERSIONSTR               "5.1.1.73E"
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/inc/qwlan_version.h
 
 #endif /* QWLAN_VERSION_H */

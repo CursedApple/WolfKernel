@@ -89,7 +89,11 @@ static void restart_modem(struct modem_data *drv)
 	/* check if any modem panic is specified for full dump */
 	if (fdump_mpanic != NULL && strlen(fdump_mpanic) > 0 &&
 	    strlen(fdump_mpanic) < FULLDUMP_MSS_PANIC_LIST_LEN) {
+<<<<<<< HEAD
 		strlcpy(ssr_reason, pil_ssr_reason, sizeof(pil_ssr_reason));
+=======
+		strscpy(ssr_reason, pil_ssr_reason, sizeof(ssr_reason));
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 		fname = strsep(&reason_str, DELIMS);
 		pr_info("fulldump_on_specified_modem_panic %s, current panic %s\n",
 			fdump_mpanic, fname);

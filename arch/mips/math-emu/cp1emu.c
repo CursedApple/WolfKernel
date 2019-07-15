@@ -844,7 +844,10 @@ do {									\
 #define DITOREG(di, x)							\
 do {									\
 	unsigned int fpr, i;						\
+<<<<<<< HEAD
 	unsigned fpr, i;						\
+=======
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	fpr = (x) & ~(cop1_64bit(xcp) ^ 1);				\
 	set_fpr64(&ctx->fpr[fpr], 0, di);				\
 	for (i = 1; i < ARRAY_SIZE(ctx->fpr[x].val64); i++)		\

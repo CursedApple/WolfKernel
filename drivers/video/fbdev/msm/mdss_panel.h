@@ -374,6 +374,10 @@ enum mdss_intf_events {
 	MDSS_EVENT_DSI_DYNAMIC_BITCLK,
 	MDSS_EVENT_MAX,
 	MDSS_EVENT_ENABLE_TE,
+<<<<<<< HEAD
+=======
+	MDSS_EVENT_UPDATE_LIVEDISPLAY,
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 };
 
 /**
@@ -830,6 +834,8 @@ struct mdss_dsi_dual_pu_roi {
 	bool enabled;
 };
 
+struct mdss_livedisplay_ctx;
+
 struct mdss_panel_hdr_properties {
 	bool hdr_enabled;
 
@@ -993,6 +999,8 @@ struct mdss_panel_info {
 	 * configuring the event timer wakeup logic.
 	 */
 	u32 adjust_timer_delay_ms;
+
+	struct mdss_livedisplay_ctx *livedisplay;
 
 	/* debugfs structure for the panel */
 	struct mdss_panel_debugfs_info *debugfs_info;

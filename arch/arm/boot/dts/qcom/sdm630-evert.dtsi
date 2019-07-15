@@ -36,7 +36,11 @@
 					dev = "/dev/block/platform/soc/c0c4000.sdhci/by-name/vendor";
 					type = "ext4";
 					mnt_flags = "ro,barrier=1,discard";
+<<<<<<< HEAD
 					fsmgr_flags = "wait,slotselect";
+=======
+					fsmgr_flags = "wait,slotselect,verify";
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 					status = "ok";
 				};
 			};

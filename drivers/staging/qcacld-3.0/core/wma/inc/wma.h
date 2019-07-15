@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/wma/inc/wma.h
  * Copyright (c) 2013-2018 The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2013-2019 The Linux Foundation. All rights reserved.
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/wma/inc/wma.h
  *
  * Permission to use, copy, modify, and/or distribute this software for
  * any purpose with or without fee is hereby granted, provided that the
@@ -1762,6 +1766,10 @@ typedef struct {
 #ifdef FEATURE_WLAN_D0WOW
 	atomic_t in_d0wow;
 #endif
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/wma/inc/wma.h
+=======
+	bool is_pktcapture_enabled;
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/wma/inc/wma.h
 } t_wma_handle, *tp_wma_handle;
 
 /**

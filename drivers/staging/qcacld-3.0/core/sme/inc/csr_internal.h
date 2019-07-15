@@ -654,6 +654,10 @@ typedef struct tagCsrConfig {
 	uint32_t edca_be_aifs;
 	bool enable_fatal_event;
 	bool vendor_vht_sap;
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/sme/inc/csr_internal.h
+=======
+	bool honour_nl_scan_policy_flags;
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/sme/inc/csr_internal.h
 	enum wmi_dwelltime_adaptive_mode scan_adaptive_dwell_mode;
 	enum wmi_dwelltime_adaptive_mode scan_adaptive_dwell_mode_nc;
 	enum wmi_dwelltime_adaptive_mode roamscan_adaptive_dwell_mode;

@@ -265,7 +265,7 @@ struct cp_control {
 };
 
 /*
- * indicate meta/data type
+ * For CP/NAT/SIT/SSA readahead
  */
 enum {
 	META_CP,
@@ -274,6 +274,7 @@ enum {
 	META_SSA,
 	META_MAX,
 	META_POR,
+<<<<<<< HEAD
 	DATA_GENERIC,		/* check range only */
 	DATA_GENERIC_ENHANCE,	/* strong check on range and segment bitmap */
 	DATA_GENERIC_ENHANCE_READ,	/*
@@ -283,6 +284,8 @@ enum {
 					 * by extent_cache
 					 */
 	META_GENERIC,
+=======
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 };
 
 /* for the list of ino */
@@ -1113,7 +1116,10 @@ struct f2fs_io_info {
 	bool retry;		/* need to reallocate block address */
 	enum iostat_type io_type;	/* io type */
 	struct writeback_control *io_wbc; /* writeback control */
+<<<<<<< HEAD
 	unsigned char version;		/* version of the node */
+=======
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 };
 
 #define is_read_io(rw) ((rw) == READ)
@@ -2934,6 +2940,7 @@ static inline void f2fs_update_iostat(struct f2fs_sb_info *sbi,
 
 #define __is_large_section(sbi)		((sbi)->segs_per_sec > 1)
 
+<<<<<<< HEAD
 #define __is_meta_io(fio) (PAGE_TYPE_OF_BIO((fio)->type) == META)
 
 bool f2fs_is_valid_blkaddr(struct f2fs_sb_info *sbi,
@@ -2977,6 +2984,8 @@ static inline void f2fs_clear_page_private(struct page *page)
 	f2fs_put_page(page, 0);
 }
 
+=======
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 /*
  * file.c
  */

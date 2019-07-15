@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/dp/txrx/ol_txrx_types.h
  * Copyright (c) 2013-2018 The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2013-2019 The Linux Foundation. All rights reserved.
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/dp/txrx/ol_txrx_types.h
  *
  * Permission to use, copy, modify, and/or distribute this software for
  * any purpose with or without fee is hereby granted, provided that the
@@ -125,6 +129,7 @@ enum ol_tx_frm_type {
 enum ol_tx_peer_bal_state {
 	ol_tx_peer_bal_enable = 0,
 	ol_tx_peer_bal_disable,
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/dp/txrx/ol_txrx_types.h
 };
 
 enum ol_tx_peer_bal_timer_state {
@@ -139,6 +144,22 @@ struct ol_tx_limit_peer_t {
 	u_int16_t limit;
 };
 
+=======
+};
+
+enum ol_tx_peer_bal_timer_state {
+	ol_tx_peer_bal_timer_disable = 0,
+	ol_tx_peer_bal_timer_active,
+	ol_tx_peer_bal_timer_inactive,
+};
+
+struct ol_tx_limit_peer_t {
+	u_int16_t limit_flag;
+	u_int16_t peer_id;
+	u_int16_t limit;
+};
+
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/dp/txrx/ol_txrx_types.h
 enum tx_peer_level {
 	TXRX_IEEE11_B = 0,
 	TXRX_IEEE11_A_G,
@@ -558,6 +579,29 @@ struct ol_txrx_fw_stats_desc_elem_t {
 	struct ol_txrx_fw_stats_desc_t desc;
 };
 
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/dp/txrx/ol_txrx_types.h
+=======
+/**
+ * ol_txrx_mon_hdr_elem_t - tx packets header struture to update radiotap header
+ * for packet capture mode
+ */
+struct ol_txrx_mon_hdr_elem_t {
+	uint32_t timestamp;
+	uint8_t preamble;
+	uint8_t mcs;
+	uint8_t rate;
+	uint8_t rssi_comb;
+	uint8_t nss;
+	uint8_t bw;
+	bool stbc;
+	bool sgi;
+	bool ldpc;
+	bool beamformed;
+	bool dir; /* rx:0 , tx:1 */
+	uint8_t status; /* tx status */
+};
+
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/dp/txrx/ol_txrx_types.h
 /*
  * As depicted in the diagram below, the pdev contains an array of
  * NUM_EXT_TID ol_tx_active_queues_in_tid_t elements.
@@ -617,6 +661,12 @@ struct ol_txrx_pdev_t {
 
 	/* osdev - handle for mem alloc / free, map / unmap */
 	qdf_device_t osdev;
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/dp/txrx/ol_txrx_types.h
+=======
+
+	void *mon_osif_dev;
+	ol_txrx_mon_callback_fp mon_cb;
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/dp/txrx/ol_txrx_types.h
 
 	htt_pdev_handle htt_pdev;
 

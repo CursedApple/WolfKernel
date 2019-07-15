@@ -2540,7 +2540,11 @@ static int sanity_check_raw_super(struct f2fs_sb_info *sbi,
 		return 1;
 	}
 
+<<<<<<< HEAD
 	if (segment_count > (le64_to_cpu(raw_super->block_count) >> 9)) {
+=======
+	if (segment_count > (le32_to_cpu(raw_super->block_count) >> 9)) {
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 		f2fs_msg(sb, KERN_INFO,
 			"Wrong segment_count / block_count (%u > %llu)",
 			segment_count, le64_to_cpu(raw_super->block_count));
@@ -2603,10 +2607,13 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
 	unsigned int sit_segs, nat_segs;
 	unsigned int sit_bitmap_size, nat_bitmap_size;
 	unsigned int log_blocks_per_seg;
+<<<<<<< HEAD
 	unsigned int segment_count_main;
 	unsigned int cp_pack_start_sum, cp_payload;
 	block_t user_block_count, valid_user_blocks;
 	block_t avail_node_count, valid_node_count;
+=======
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	int i, j;
 
 	total = le32_to_cpu(raw_super->segment_count);
@@ -2631,6 +2638,7 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
 		return 1;
 	}
 
+<<<<<<< HEAD
 	user_block_count = le64_to_cpu(ckpt->user_block_count);
 	segment_count_main = le32_to_cpu(raw_super->segment_count_main);
 	log_blocks_per_seg = le32_to_cpu(raw_super->log_blocks_per_seg);
@@ -2659,6 +2667,8 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
 		return 1;
 	}
 
+=======
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	main_segs = le32_to_cpu(raw_super->segment_count_main);
 	blocks_per_seg = sbi->blocks_per_seg;
 
@@ -2714,17 +2724,6 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi)
 		f2fs_msg(sbi->sb, KERN_ERR,
 			"Wrong bitmap size: sit: %u, nat:%u",
 			sit_bitmap_size, nat_bitmap_size);
-		return 1;
-	}
-
-	cp_pack_start_sum = __start_sum_addr(sbi);
-	cp_payload = __cp_payload(sbi);
-	if (cp_pack_start_sum < cp_payload + 1 ||
-		cp_pack_start_sum > blocks_per_seg - 1 -
-			NR_CURSEG_TYPE) {
-		f2fs_msg(sbi->sb, KERN_ERR,
-			"Wrong cp_pack_start_sum: %u",
-			cp_pack_start_sum);
 		return 1;
 	}
 
@@ -3268,6 +3267,7 @@ try_onemore:
 		goto free_meta_inode;
 	}
 
+<<<<<<< HEAD
 	if (__is_set_ckpt_flags(F2FS_CKPT(sbi), CP_QUOTA_NEED_FSCK_FLAG))
 		set_sbi_flag(sbi, SBI_QUOTA_NEED_REPAIR);
 	if (__is_set_ckpt_flags(F2FS_CKPT(sbi), CP_DISABLED_QUICK_FLAG)) {
@@ -3275,6 +3275,8 @@ try_onemore:
 		sbi->interval_time[DISABLE_TIME] = DEF_DISABLE_QUICK_INTERVAL;
 	}
 
+=======
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	/* Initialize device list */
 	err = f2fs_scan_devices(sbi);
 	if (err) {
@@ -3431,7 +3433,11 @@ try_onemore:
 			goto free_meta;
 		}
 	}
+<<<<<<< HEAD
 reset_checkpoint:
+=======
+skip_recovery:
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	/* f2fs_recover_fsync_data() cleared this already */
 	clear_sbi_flag(sbi, SBI_POR_DOING);
 
@@ -3512,7 +3518,11 @@ free_sm:
 	f2fs_destroy_segment_manager(sbi);
 free_devices:
 	destroy_device_list(sbi);
+<<<<<<< HEAD
 	kvfree(sbi->ckpt);
+=======
+	kfree(sbi->ckpt);
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 free_meta_inode:
 	make_bad_inode(sbi->meta_inode);
 	iput(sbi->meta_inode);

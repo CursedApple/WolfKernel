@@ -11,6 +11,10 @@ obj-$(CONFIG_CRYPTO_DEV_QCRYPTO) += qcrypto.o
 obj-$(CONFIG_CRYPTO_DEV_OTA_CRYPTO) += ota_crypto.o
 obj-$(CONFIG_CRYPTO_DEV_QCOM_ICE) += ice.o
 
+<<<<<<< HEAD
 # TODO: remove me b/62058353
 subdir-ccflags-y += \
 	$(call cc-option,-Wno-frame-larger-than=)
+=======
+CFLAGS_qcedev.o := $(call cc-option,-Wframe-larger-than=5120)
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f

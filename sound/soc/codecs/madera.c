@@ -605,6 +605,7 @@ int madera_core_destroy(struct madera_priv *priv)
 }
 EXPORT_SYMBOL_GPL(madera_core_destroy);
 
+<<<<<<< HEAD
 int madera_mux_get(struct snd_kcontrol *kcontrol,
 		   struct snd_ctl_elem_value *ucontrol)
 {
@@ -690,6 +691,8 @@ int madera_mux_ev(struct snd_soc_dapm_widget *w,
 }
 EXPORT_SYMBOL_GPL(madera_mux_ev);
 
+=======
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 static bool madera_is_hp_shorted(const struct madera *madera,
 				 unsigned int index)
 {

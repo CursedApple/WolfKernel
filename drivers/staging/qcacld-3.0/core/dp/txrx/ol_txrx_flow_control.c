@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/dp/txrx/ol_txrx_flow_control.c
  * Copyright (c) 2015-2018 The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2015-2019 The Linux Foundation. All rights reserved.
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/dp/txrx/ol_txrx_flow_control.c
  *
  * Permission to use, copy, modify, and/or distribute this software for
  * any purpose with or without fee is hereby granted, provided that the
@@ -444,12 +448,21 @@ ol_tx_distribute_descs_to_deficient_pools(struct ol_tx_flow_pool_t *src_pool)
 			if (dst_pool->status == FLOW_POOL_ACTIVE_PAUSED) {
 				if (dst_pool->avail_desc > dst_pool->start_th) {
 					pdev->pause_cb(dst_pool->member_flow_id,
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/dp/txrx/ol_txrx_flow_control.c
 						      WLAN_WAKE_ALL_NETIF_QUEUE,
 						      WLAN_DATA_FLOW_CONTROL);
 
 					pdev->pause_cb(dst_pool->member_flow_id,
 						      WLAN_NETIF_PRIORITY_QUEUE_ON,
 						      WLAN_DATA_FLOW_CONTROL_PRIORITY);
+=======
+					      WLAN_NETIF_PRIORITY_QUEUE_ON,
+					      WLAN_DATA_FLOW_CONTROL_PRIORITY);
+
+					pdev->pause_cb(dst_pool->member_flow_id,
+						      WLAN_WAKE_ALL_NETIF_QUEUE,
+						      WLAN_DATA_FLOW_CONTROL);
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/dp/txrx/ol_txrx_flow_control.c
 
 					dst_pool->status =
 						FLOW_POOL_ACTIVE_UNPAUSED;
@@ -708,6 +721,12 @@ void ol_tx_flow_pool_map_handler(uint8_t flow_id, uint8_t flow_type,
 	case FLOW_TYPE_VDEV:
 		ol_tx_flow_pool_vdev_map(pool, flow_id);
 		pdev->pause_cb(flow_id,
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/dp/txrx/ol_txrx_flow_control.c
+=======
+			       WLAN_NETIF_PRIORITY_QUEUE_ON,
+			       WLAN_DATA_FLOW_CONTROL_PRIORITY);
+		pdev->pause_cb(flow_id,
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/dp/txrx/ol_txrx_flow_control.c
 			       WLAN_WAKE_ALL_NETIF_QUEUE,
 			       WLAN_DATA_FLOW_CONTROL);
 		break;

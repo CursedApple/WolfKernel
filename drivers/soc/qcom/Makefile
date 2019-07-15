@@ -113,6 +113,7 @@ obj-$(CONFIG_QCOM_QDSS_BRIDGE) += qdss_bridge.o
 obj-$(CONFIG_MSM_REMOTEQDSS) += remoteqdss.o
 obj-$(CONFIG_MMI_SOC_INFO) += mmi_soc_info.o
 obj-$(CONFIG_MMI_RAM_INFO) += mmi-ram-info.o
+<<<<<<< HEAD
 obj-$(CONFIG_STATE_NOTIFIER) += state_notifier.o
 obj-$(CONFIG_MMI_STORAGE_INFO) += mmi_storage_info.o
 obj-$(CONFIG_MMI_UNIT_INFO) += mmi-unit-info.o
@@ -122,3 +123,8 @@ obj-$(CONFIG_BOOTINFO) += bootinfo.o
 subdir-ccflags-y += \
 	-Wno-gcc-compat \
 	-Wno-enum-conversion
+=======
+obj-$(CONFIG_MMI_STORAGE_INFO) += mmi_storage_info.o
+obj-$(CONFIG_MMI_UNIT_INFO) += mmi-unit-info.o
+obj-$(CONFIG_BOOTINFO) += bootinfo.o
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f

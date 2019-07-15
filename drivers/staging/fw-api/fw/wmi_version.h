@@ -36,7 +36,11 @@
 #define __WMI_VER_MINOR_    0
 /** WMI revision number has to be incremented when there is a
  *  change that may or may not break compatibility. */
+<<<<<<< HEAD:drivers/staging/fw-api/fw/wmi_version.h
 #define __WMI_REVISION_ 631
+=======
+#define __WMI_REVISION_ 664
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/fw-api/fw/wmi_version.h
 
 /** The Version Namespace should not be normally changed. Only
  *  host and firmware of the same WMI namespace will work

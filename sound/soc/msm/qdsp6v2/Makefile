@@ -23,8 +23,11 @@ obj-y += audio_calibration.o audio_cal_utils.o q6adm.o q6afe.o q6asm.o \
 ocmem-audio-objs += audio_ocmem.o
 obj-$(CONFIG_AUDIO_OCMEM) += ocmem-audio.o
 obj-$(CONFIG_CIRRUS_PLAYBACK) += msm-cirrus-playback.o
+<<<<<<< HEAD
 
 #TODO: remove me b/62058353
 subdir-ccflags-y += \
 	-Wno-non-literal-null-conversion \
 	-Wno-duplicate-decl-specifier
+=======
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f

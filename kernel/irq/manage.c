@@ -336,6 +336,7 @@ irq_set_affinity_notifier(unsigned int irq, struct irq_affinity_notify *notify)
 	desc->affinity_notify = notify;
 	raw_spin_unlock_irqrestore(&desc->lock, flags);
 
+<<<<<<< HEAD
 
 	if (!notify && old_notify)
 		cancel_work_sync(&old_notify->work);
@@ -345,6 +346,10 @@ irq_set_affinity_notifier(unsigned int irq, struct irq_affinity_notify *notify)
 	if (old_notify) {
 		cancel_work_sync(&old_notify->work);
 
+=======
+	if (old_notify) {
+		cancel_work_sync(&old_notify->work);
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 		kref_put(&old_notify->kref, old_notify->release);
 	}
 

@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2011-2018 The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2011-2019 The Linux Foundation. All rights reserved.
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
  *
  * Permission to use, copy, modify, and/or distribute this software for
  * any purpose with or without fee is hereby granted, provided that the
@@ -647,13 +651,21 @@ extern int
 (*htt_rx_amsdu_pop)(htt_pdev_handle pdev,
 		    qdf_nbuf_t rx_ind_msg,
 		    qdf_nbuf_t *head_msdu, qdf_nbuf_t *tail_msdu,
+<<<<<<< HEAD
 		    uint32_t *msdu_count);
+=======
+		    qdf_nbuf_t *head_mon_msdu, uint32_t *msdu_count);
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 
 extern int
 (*htt_rx_frag_pop)(htt_pdev_handle pdev,
 		   qdf_nbuf_t rx_ind_msg,
 		   qdf_nbuf_t *head_msdu, qdf_nbuf_t *tail_msdu,
+<<<<<<< HEAD
 		   uint32_t *msdu_count);
+=======
+		   qdf_nbuf_t *head_mon_msdu, uint32_t *msdu_count);
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 
 /**
  * @brief Return the maximum number of available msdus currently

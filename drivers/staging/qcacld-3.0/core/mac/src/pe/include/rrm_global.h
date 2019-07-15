@@ -289,6 +289,16 @@ enum mask_rm_capability_byte3 {
 	RM_CAP_NONOPER_CHAN_MAX_DURATION_1 = (1 << (5)),
 	RM_CAP_NONOPER_CHAN_MAX_DURATION_2 = (1 << (6)),
 	RM_CAP_NONOPER_CHAN_MAX_DURATION_3 = (1 << (7)),
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/include/rrm_global.h
+=======
+	RM_CAP_OPER_CHAN_MAX_DURATION = (RM_CAP_OPER_CHAN_MAX_DURATION_1 |
+					 RM_CAP_OPER_CHAN_MAX_DURATION_2 |
+					 RM_CAP_OPER_CHAN_MAX_DURATION_3),
+	RM_CAP_NONOPER_CHAN_MAX_DURATION =
+				(RM_CAP_NONOPER_CHAN_MAX_DURATION_1 |
+				 RM_CAP_NONOPER_CHAN_MAX_DURATION_2 |
+				 RM_CAP_NONOPER_CHAN_MAX_DURATION_3),
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/include/rrm_global.h
 };
 
 /**
@@ -313,6 +323,12 @@ enum mask_rm_capability_byte4 {
 	RM_CAP_RCPI_MEASUREMENT1 = (1 << (5)),
 	RM_CAP_RSNI_MEASUREMENT = (1 << (6)),
 	RM_CAP_BSS_AVG_ACCESS_DELAY = (1 << (7)),
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/include/rrm_global.h
+=======
+	RM_CAP_MEASUREMENT_PILOT = (RM_CAP_MEASUREMENT_PILOT_1 |
+				    RM_CAP_MEASUREMENT_PILOT_2 |
+				    RM_CAP_MEASUREMENT_PILOT_3),
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/include/rrm_global.h
 };
 
 /**

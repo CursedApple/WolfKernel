@@ -539,6 +539,11 @@ typedef enum {
 	eCSR_ROAM_ABORT,
 	eCSR_ROAM_NAPI_OFF,
 	eCSR_ROAM_SAE_COMPUTE,
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/sme/inc/csr_api.h
+=======
+	/* LFR3 Roam sync complete */
+	eCSR_ROAM_SYNCH_COMPLETE,
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/sme/inc/csr_api.h
 } eRoamCmdStatus;
 
 /* comment inside indicates what roaming callback gets */
@@ -1384,6 +1389,10 @@ typedef struct tagCsrConfigParam {
 	uint32_t edca_bk_aifs;
 	uint32_t edca_be_aifs;
 	bool enable_fatal_event;
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/sme/inc/csr_api.h
+=======
+	bool honour_nl_scan_policy_flags;
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/sme/inc/csr_api.h
 	enum wmi_dwelltime_adaptive_mode scan_adaptive_dwell_mode;
 	enum wmi_dwelltime_adaptive_mode scan_adaptive_dwell_mode_nc;
 	enum wmi_dwelltime_adaptive_mode roamscan_adaptive_dwell_mode;
@@ -1591,6 +1600,10 @@ typedef struct tagCsrRoamInfo {
 	int rx_rate;
 	tSirMacCapabilityInfo capability_info;
 	uint32_t rx_mc_bc_cnt;
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/sme/inc/csr_api.h
+=======
+	uint16_t roam_reason;
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/sme/inc/csr_api.h
 } tCsrRoamInfo;
 
 typedef struct tagCsrFreqScanInfo {

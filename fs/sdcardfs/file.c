@@ -158,6 +158,10 @@ static long sdcardfs_compat_ioctl(struct file *file, unsigned int cmd,
 		err = -ENOMEM;
 		goto out;
 	}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 
 	if (lower_file->f_op->compat_ioctl)
 		err = lower_file->f_op->compat_ioctl(lower_file, cmd, arg);

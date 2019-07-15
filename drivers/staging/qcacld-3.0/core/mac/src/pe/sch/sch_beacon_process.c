@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/sch/sch_beacon_process.c
  * Copyright (c) 2012-2018 The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2012-2019 The Linux Foundation. All rights reserved.
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/sch/sch_beacon_process.c
  *
  * Permission to use, copy, modify, and/or distribute this software for
  * any purpose with or without fee is hereby granted, provided that the
@@ -558,6 +562,16 @@ sch_bcn_process_sta_ibss(tpAniSirGlobal mac_ctx,
 			return;
 		}
 
+		if (WNI_CFG_CHANNEL_BONDING_MODE_DISABLE == cb_mode) {
+			/*
+			 * if channel bonding is disabled from INI don't
+			 * update the CH_WIDTH
+			 */
+			pe_debug_rate_limited(30, "CB disabled skip bw update: old[%d] new[%d]",
+				      operMode, bcn->OperatingMode.chanWidth);
+			return;
+		}
+
 		if (!skip_opmode_update &&
 			((operMode != bcn->OperatingMode.chanWidth) ||
 			(pStaDs->vhtSupportedRxNss !=
@@ -620,6 +634,7 @@ sch_bcn_process_sta_ibss(tpAniSirGlobal mac_ctx,
 
 	if (WNI_CFG_CHANNEL_BONDING_MODE_DISABLE == cb_mode) {
 		/*
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/sch/sch_beacon_process.c
 		 * if channel bonding is disabled from INI and
 		 * receiving beacon which has operating mode IE
 		 * containing channel width change then don't update
@@ -629,6 +644,16 @@ sch_bcn_process_sta_ibss(tpAniSirGlobal mac_ctx,
 			operMode, bcn->VHTOperation.chanWidth);
 		return;
 	}
+=======
+		 * if channel bonding is disabled from INI don't
+		 * update the CH_WIDTH
+		 */
+		pe_debug_rate_limited(30, "CB disabled, skip ch width update: old[%d] new[%d]",
+				      operMode, bcn->VHTOperation.chanWidth);
+		return;
+	}
+
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/sch/sch_beacon_process.c
 	if (!skip_opmode_update &&
 	    (operMode != bcn->VHTOperation.chanWidth)) {
 		pe_debug("received VHTOP CHWidth %d staIdx = %d",

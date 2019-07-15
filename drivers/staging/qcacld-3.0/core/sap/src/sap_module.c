@@ -2262,6 +2262,7 @@ QDF_STATUS wlansap_send_action(void *pCtx, const uint8_t *pBuf,
 	ptSapContext pSapCtx = NULL;
 	void *hHal = NULL;
 	QDF_STATUS qdf_ret_status = QDF_STATUS_E_FAILURE;
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/sap/src/sap_module.c
 
 	pSapCtx = CDS_GET_SAP_CB(pCtx);
 	if (NULL == pSapCtx) {
@@ -2282,6 +2283,28 @@ QDF_STATUS wlansap_send_action(void *pCtx, const uint8_t *pBuf,
 		sme_send_action(hHal, pSapCtx->sessionId, pBuf, len, 0,
 		0, channel_freq);
 
+=======
+
+	pSapCtx = CDS_GET_SAP_CB(pCtx);
+	if (NULL == pSapCtx) {
+		QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_ERROR,
+			  "%s: Invalid SAP pointer from pCtx",
+			  __func__);
+		return QDF_STATUS_E_FAULT;
+	}
+	hHal = CDS_GET_HAL_CB(pSapCtx->p_cds_gctx);
+	if ((NULL == hHal) || (true != pSapCtx->isSapSessionOpen)) {
+		QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_ERROR,
+			  "%s: HAL pointer (%pK) NULL OR SME session is not open (%d)",
+			  __func__, hHal, pSapCtx->isSapSessionOpen);
+		return QDF_STATUS_E_FAULT;
+	}
+
+	qdf_ret_status =
+		sme_send_action(hHal, pSapCtx->sessionId, pBuf, len, 0,
+		0, channel_freq);
+
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/sap/src/sap_module.c
 	if (QDF_STATUS_SUCCESS == qdf_ret_status) {
 		return QDF_STATUS_SUCCESS;
 	}
@@ -2316,6 +2339,7 @@ QDF_STATUS wlansap_remain_on_channel(void *pCtx,
 	ptSapContext pSapCtx = NULL;
 	void *hHal = NULL;
 	QDF_STATUS qdf_ret_status = QDF_STATUS_E_FAILURE;
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/sap/src/sap_module.c
 
 	pSapCtx = CDS_GET_SAP_CB(pCtx);
 	if (NULL == pSapCtx) {
@@ -2336,6 +2360,28 @@ QDF_STATUS wlansap_remain_on_channel(void *pCtx,
 				channel, duration, callback, pContext,
 				true, scan_id);
 
+=======
+
+	pSapCtx = CDS_GET_SAP_CB(pCtx);
+	if (NULL == pSapCtx) {
+		QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_ERROR,
+			  "%s: Invalid SAP pointer from pCtx",
+			  __func__);
+		return QDF_STATUS_E_FAULT;
+	}
+	hHal = CDS_GET_HAL_CB(pSapCtx->p_cds_gctx);
+	if ((NULL == hHal) || (true != pSapCtx->isSapSessionOpen)) {
+		QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_ERROR,
+			  "%s: HAL pointer (%pK) NULL OR SME session is not open (%d)",
+			  __func__, hHal, pSapCtx->isSapSessionOpen);
+		return QDF_STATUS_E_FAULT;
+	}
+
+	qdf_ret_status = sme_remain_on_channel(hHal, pSapCtx->sessionId,
+				channel, duration, callback, pContext,
+				true, scan_id);
+
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/sap/src/sap_module.c
 	if (QDF_STATUS_SUCCESS == qdf_ret_status) {
 		return QDF_STATUS_SUCCESS;
 	}
@@ -2479,6 +2525,7 @@ QDF_STATUS wlan_sap_set_pre_cac_complete_status(void *ctx, bool status)
 			__func__, status, sap_ctx->sessionId);
 
 	return QDF_STATUS_SUCCESS;
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/sap/src/sap_module.c
 }
 
 /**
@@ -2542,6 +2589,71 @@ QDF_STATUS wlan_sap_get_pre_cac_vdev_id(tHalHandle handle, uint8_t *vdev_id)
 	return QDF_STATUS_E_FAILURE;
 }
 
+=======
+}
+
+/**
+ * wlan_sap_is_pre_cac_active() - Checks if pre cac in in progress
+ * @handle: Global MAC handle
+ *
+ * Checks if pre cac is in progress in any of the SAP contexts
+ *
+ * Return: True is pre cac is active, false otherwise
+ */
+bool wlan_sap_is_pre_cac_active(tHalHandle handle)
+{
+	tpAniSirGlobal mac = NULL;
+	int i;
+
+	mac = PMAC_STRUCT(handle);
+	if (!mac) {
+		QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_INFO_HIGH,
+			"%s: Invalid mac context", __func__);
+		return false;
+	}
+
+	for (i = 0; i < SAP_MAX_NUM_SESSION; i++) {
+		ptSapContext context =
+			(ptSapContext) mac->sap.sapCtxList[i].pSapContext;
+		if (context && context->is_pre_cac_on)
+			return true;
+	}
+	return false;
+}
+
+/**
+ * wlan_sap_get_pre_cac_vdev_id() - Get vdev id of the pre cac interface
+ * @handle: Global handle
+ * @vdev_id: vdev id
+ *
+ * Fetches the vdev id of the pre cac interface
+ *
+ * Return: QDF_STATUS
+ */
+QDF_STATUS wlan_sap_get_pre_cac_vdev_id(tHalHandle handle, uint8_t *vdev_id)
+{
+	tpAniSirGlobal mac = NULL;
+	uint8_t i;
+
+	mac = PMAC_STRUCT(handle);
+	if (!mac) {
+		QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_INFO_HIGH,
+			"%s: Invalid mac context", __func__);
+		return QDF_STATUS_E_FAULT;
+	}
+
+	for (i = 0; i < SAP_MAX_NUM_SESSION; i++) {
+		ptSapContext context =
+			(ptSapContext) mac->sap.sapCtxList[i].pSapContext;
+		if (context && context->is_pre_cac_on) {
+			*vdev_id = i;
+			return QDF_STATUS_SUCCESS;
+		}
+	}
+	return QDF_STATUS_E_FAILURE;
+}
+
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/sap/src/sap_module.c
 /**
  * wlansap_register_mgmt_frame() - register management frame
  * @pCtx: Pointer to the global cds context; a handle to SAP's control block
@@ -2563,6 +2675,7 @@ QDF_STATUS wlansap_register_mgmt_frame
 	ptSapContext pSapCtx = NULL;
 	void *hHal = NULL;
 	QDF_STATUS qdf_ret_status = QDF_STATUS_E_FAILURE;
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/sap/src/sap_module.c
 
 	pSapCtx = CDS_GET_SAP_CB(pCtx);
 	if (NULL == pSapCtx) {
@@ -2583,6 +2696,28 @@ QDF_STATUS wlansap_register_mgmt_frame
 						 frameType, matchData,
 						 matchLen);
 
+=======
+
+	pSapCtx = CDS_GET_SAP_CB(pCtx);
+	if (NULL == pSapCtx) {
+		QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_ERROR,
+			  "%s: Invalid SAP pointer from pCtx",
+			  __func__);
+		return QDF_STATUS_E_FAULT;
+	}
+	hHal = CDS_GET_HAL_CB(pSapCtx->p_cds_gctx);
+	if ((NULL == hHal) || (true != pSapCtx->isSapSessionOpen)) {
+		QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_ERROR,
+			  "%s: HAL pointer (%pK) NULL OR SME session is not open (%d)",
+			  __func__, hHal, pSapCtx->isSapSessionOpen);
+		return QDF_STATUS_E_FAULT;
+	}
+
+	qdf_ret_status = sme_register_mgmt_frame(hHal, pSapCtx->sessionId,
+						 frameType, matchData,
+						 matchLen);
+
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/sap/src/sap_module.c
 	if (QDF_STATUS_SUCCESS == qdf_ret_status) {
 		return QDF_STATUS_SUCCESS;
 	}
@@ -2613,6 +2748,7 @@ QDF_STATUS wlansap_de_register_mgmt_frame
 	ptSapContext pSapCtx = NULL;
 	void *hHal = NULL;
 	QDF_STATUS qdf_ret_status = QDF_STATUS_E_FAILURE;
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/sap/src/sap_module.c
 
 	pSapCtx = CDS_GET_SAP_CB(pCtx);
 	if (NULL == pSapCtx) {
@@ -2633,6 +2769,28 @@ QDF_STATUS wlansap_de_register_mgmt_frame
 		sme_deregister_mgmt_frame(hHal, pSapCtx->sessionId, frameType,
 					  matchData, matchLen);
 
+=======
+
+	pSapCtx = CDS_GET_SAP_CB(pCtx);
+	if (NULL == pSapCtx) {
+		QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_ERROR,
+			  "%s: Invalid SAP pointer from pCtx",
+			  __func__);
+		return QDF_STATUS_E_FAULT;
+	}
+	hHal = CDS_GET_HAL_CB(pSapCtx->p_cds_gctx);
+	if ((NULL == hHal) || (true != pSapCtx->isSapSessionOpen)) {
+		QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_ERROR,
+			  "%s: HAL pointer (%pK) NULL OR SME session is not open (%d)",
+			  __func__, hHal, pSapCtx->isSapSessionOpen);
+		return QDF_STATUS_E_FAULT;
+	}
+
+	qdf_ret_status =
+		sme_deregister_mgmt_frame(hHal, pSapCtx->sessionId, frameType,
+					  matchData, matchLen);
+
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/sap/src/sap_module.c
 	if (QDF_STATUS_SUCCESS == qdf_ret_status) {
 		return QDF_STATUS_SUCCESS;
 	}
@@ -3871,3 +4029,155 @@ bool wlansap_check_sap_started(void *sap_ctx)
 
 	return false;
 }
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/sap/src/sap_module.c
+=======
+
+QDF_STATUS wlansap_filter_ch_based_acs(void *cds_ctx,
+				       uint8_t *ch_list,
+				       uint32_t *ch_cnt)
+{
+	size_t ch_index;
+	uint32_t target_ch_cnt = 0;
+	ptSapContext sap_ctx;
+
+	sap_ctx = CDS_GET_SAP_CB(cds_ctx);
+
+	if (!sap_ctx || !ch_list || !ch_cnt || !sap_ctx->acs_cfg) {
+		QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_ERROR,
+			  "Null parameters");
+		return QDF_STATUS_E_FAULT;
+	}
+
+	for (ch_index = 0; ch_index < *ch_cnt; ch_index++) {
+		if (ch_list[ch_index] >= sap_ctx->acs_cfg->start_ch &&
+		    ch_list[ch_index] <= sap_ctx->acs_cfg->end_ch)
+			ch_list[target_ch_cnt++] = ch_list[ch_index];
+	}
+
+	*ch_cnt = target_ch_cnt;
+
+	return QDF_STATUS_SUCCESS;
+}
+
+#if defined(FEATURE_WLAN_CH_AVOID)
+/**
+ * wlansap_get_safe_channel() - Get safe channel from current regulatory
+ * @cds_ctx: sap context
+ *
+ * This function is used to get safe channel from current regulatory valid
+ * channels to restart SAP if failed to get safe channel from PCL.
+ *
+ * Return: Channel number to restart SAP in case of success. In case of any
+ * failure, the channel number returned is zero.
+ */
+static uint8_t
+wlansap_get_safe_channel(void *cds_ctx)
+{
+	struct sir_pcl_list pcl;
+	QDF_STATUS status;
+	ptSapContext sap_ctx;
+
+	sap_ctx = CDS_GET_SAP_CB(cds_ctx);
+
+	if (!sap_ctx) {
+		QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_ERROR,
+			  "Invalid sap_ctx %pK",
+			  sap_ctx);
+		return INVALID_CHANNEL_ID;
+	}
+
+	status = cds_get_valid_chans(pcl.pcl_list,
+				     &pcl.pcl_len);
+	if (QDF_IS_STATUS_ERROR(status)) {
+		QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_ERROR,
+			  "error %d in getting valid channel list", status);
+		return INVALID_CHANNEL_ID;
+	}
+
+	status = wlansap_filter_ch_based_acs(cds_ctx,
+					     pcl.pcl_list,
+					     &pcl.pcl_len);
+	if (QDF_IS_STATUS_ERROR(status)) {
+		QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_ERROR,
+			  "failed to filter ch from acs %d", status);
+		return INVALID_CHANNEL_ID;
+	}
+
+	if (pcl.pcl_len) {
+		status = cds_get_valid_chans_from_range(pcl.pcl_list,
+							&pcl.pcl_len,
+							CDS_SAP_MODE);
+		if (QDF_IS_STATUS_ERROR(status)) {
+			QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_ERROR,
+				  "failed to get valid channel: %d", status);
+			return INVALID_CHANNEL_ID;
+		}
+
+		if (pcl.pcl_len) {
+			QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_DEBUG,
+				  "select %d from valid channel list",
+				  pcl.pcl_list[0]);
+			return pcl.pcl_list[0];
+		}
+	}
+
+	return INVALID_CHANNEL_ID;
+}
+
+uint8_t wlansap_get_safe_channel_from_pcl_and_acs_range(void *cds_ctx)
+{
+	struct sir_pcl_list pcl;
+	QDF_STATUS status;
+	ptSapContext sap_ctx;
+
+	sap_ctx = CDS_GET_SAP_CB(cds_ctx);
+
+	if (!sap_ctx) {
+		QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_ERROR,
+			  "Invalid sap_ctx %pK",
+			  sap_ctx);
+		return INVALID_CHANNEL_ID;
+	}
+
+	status = cds_get_pcl_for_existing_conn(
+			CDS_SAP_MODE, pcl.pcl_list, &pcl.pcl_len,
+			pcl.weight_list, QDF_ARRAY_SIZE(pcl.weight_list),
+			false);
+	if (QDF_IS_STATUS_ERROR(status)) {
+		QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_ERROR,
+			  "Get PCL failed");
+		return INVALID_CHANNEL_ID;
+	}
+
+	if (pcl.pcl_len) {
+		status = wlansap_filter_ch_based_acs(cds_ctx,
+						     pcl.pcl_list,
+						     &pcl.pcl_len);
+		if (QDF_IS_STATUS_ERROR(status)) {
+			QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_ERROR,
+				  "failed to filter ch from acs %d", status);
+			return INVALID_CHANNEL_ID;
+		}
+
+		if (pcl.pcl_len) {
+			QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_DEBUG,
+				  "select %d from valid channel list",
+				  pcl.pcl_list[0]);
+			return pcl.pcl_list[0];
+		}
+		QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_DEBUG,
+			  "no safe channel from PCL found in ACS range");
+	} else {
+		QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_DEBUG,
+			  "pcl length is zero!");
+	}
+
+	/*
+	 * In some scenarios, like hw dbs disabled, sap+sap case, if operating
+	 * channel is unsafe channel, the pcl may be empty, instead of return,
+	 * try to choose a safe channel from acs range.
+	 */
+	return wlansap_get_safe_channel(cds_ctx);
+}
+#endif
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/sap/src/sap_module.c

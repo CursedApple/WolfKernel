@@ -296,9 +296,15 @@ static QDF_STATUS sme_ese_send_beacon_req_scan_results(
 	if (result_arr)
 		cur_result = result_arr[bss_counter];
 
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/sme/src/rrm/sme_rrm.c
 	qdf_mem_zero(&bcn_rpt_rsp, sizeof(tSirEseBcnReportRsp));
+=======
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/sme/src/rrm/sme_rrm.c
 	do {
 		cur_meas_req = NULL;
+		/* memset bcn_rpt_rsp for each iteration */
+		qdf_mem_zero(&bcn_rpt_rsp, sizeof(bcn_rpt_rsp));
+
 		for (i = 0; i < rrm_ctx->eseBcnReqInfo.numBcnReqIe; i++) {
 			if (rrm_ctx->eseBcnReqInfo.bcnReq[i].channel ==
 				channel) {
@@ -357,9 +363,15 @@ static QDF_STATUS sme_ese_send_beacon_req_scan_results(
 			bcn_report->numBss++;
 			if (++j >= SIR_BCN_REPORT_MAX_BSS_DESC)
 				break;
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/sme/src/rrm/sme_rrm.c
 			if (j >= bss_count)
 				break;
 			cur_result = result_arr[j];
+=======
+			if ((bss_counter + j) >= bss_count)
+				break;
+			cur_result = result_arr[bss_counter + j];
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/sme/src/rrm/sme_rrm.c
 		}
 
 		bss_counter += j;
@@ -940,6 +952,7 @@ QDF_STATUS sme_rrm_process_beacon_report_req_ind(tpAniSirGlobal pMac,
 			MAC_ADDR_ARRAY(pBeaconReq->bssId));
 		return QDF_STATUS_E_FAILURE;
 	}
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/sme/src/rrm/sme_rrm.c
 
 	session = CSR_GET_SESSION(pMac, session_id);
 	if (!session) {
@@ -947,6 +960,15 @@ QDF_STATUS sme_rrm_process_beacon_report_req_ind(tpAniSirGlobal pMac,
 		return QDF_STATUS_E_FAILURE;
 	}
 
+=======
+
+	session = CSR_GET_SESSION(pMac, session_id);
+	if (!session) {
+		sme_err("Invalid session id %d", session_id);
+		return QDF_STATUS_E_FAILURE;
+	}
+
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/sme/src/rrm/sme_rrm.c
 	if (session->connectedProfile.countryCode[0])
 		country = session->connectedProfile.countryCode;
 	else
@@ -1324,6 +1346,7 @@ static QDF_STATUS sme_rrm_process_neighbor_report(tpAniSirGlobal pMac,
 	tpRrmNeighborReportDesc pNeighborReportDesc;
 	uint8_t i = 0;
 	QDF_STATUS qdf_status = QDF_STATUS_SUCCESS;
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/sme/src/rrm/sme_rrm.c
 	uint32_t sessionId;
 
 	/* Get the session id */
@@ -1341,6 +1364,15 @@ static QDF_STATUS sme_rrm_process_neighbor_report(tpAniSirGlobal pMac,
 		}
 #endif
 	}
+=======
+
+	/* Purge the cache on reception of unsolicited neighbor report */
+	if (!pMac->rrm.rrmSmeContext.neighborReqControlInfo.
+			isNeighborRspPending)
+		rrm_ll_purge_neighbor_cache(pMac,
+					    &pMac->rrm.rrmSmeContext.
+					    neighborReportCache);
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/sme/src/rrm/sme_rrm.c
 
 	for (i = 0; i < pNeighborRpt->numNeighborReports; i++) {
 		pNeighborReportDesc =
@@ -1391,6 +1423,11 @@ end:
 
 	if (!csr_ll_count(&pMac->rrm.rrmSmeContext.neighborReportCache))
 		qdf_status = QDF_STATUS_E_FAILURE;
+<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/sme/src/rrm/sme_rrm.c
+=======
+
+	rrm_indicate_neighbor_report_result(pMac, qdf_status);
+>>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/sme/src/rrm/sme_rrm.c
 
 	rrm_indicate_neighbor_report_result(pMac, qdf_status);
 	return status;

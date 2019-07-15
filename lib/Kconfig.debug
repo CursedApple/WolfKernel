@@ -2000,7 +2000,6 @@ config PANIC_ON_DATA_CORRUPTION
 	 recoverable data corruption scenarios to system-halting panics,
 	 for easier detection and debug.
 
-
 	 config CC_WERROR
 	bool "Treat all compile warnings as errors"
 	default n
@@ -2022,6 +2021,16 @@ config SOFTLOCKUP_WATCHDOG_TEST
 	 developers working on architecture code for test purpose.
 
 	 Say N if you are unsure.
+
+config CC_WERROR
+	bool "Treat all compile warnings as errors"
+	default n
+	help
+	 Select this option to set compiler warnings as errors,
+	 to prevent easily-fixable problems from creeping into
+	 the codebase.
+
+	 If unsure, say N.
 
 source "samples/Kconfig"
 
