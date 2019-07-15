@@ -621,14 +621,6 @@ static int drv2624_file_release(struct inode *inode, struct file *file)
 	return 0;
 }
 
-<<<<<<< HEAD
-=======
-#ifdef __clang__
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wshift-overflow"
-#endif
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 static long
 drv2624_file_unlocked_ioctl(struct file *file, unsigned int cmd,
 			    unsigned long arg)
@@ -707,13 +699,6 @@ drv2624_file_unlocked_ioctl(struct file *file, unsigned int cmd,
 	return ret;
 }
 
-<<<<<<< HEAD
-=======
-#ifdef __clang__
-#pragma clang diagnostic pop
-#endif
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 static ssize_t
 drv2624_file_read(struct file *filp, char *buff, size_t length, loff_t *offset)
 {

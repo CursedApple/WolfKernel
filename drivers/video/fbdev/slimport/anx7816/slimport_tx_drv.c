@@ -2561,11 +2561,7 @@ static void sp_tx_config_audio(void)
 
 	switch (c & 0x0f) {
 	case 0x00:
-<<<<<<< HEAD
 		AUD_Freq = 44.1;
-=======
-		AUD_Freq = 44;
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 		break;
 	case 0x02:
 		AUD_Freq = 48;
@@ -2574,21 +2570,13 @@ static void sp_tx_config_audio(void)
 		AUD_Freq = 32;
 		break;
 	case 0x08:
-<<<<<<< HEAD
 		AUD_Freq = 88.2;
-=======
-		AUD_Freq = 88;
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 		break;
 	case 0x0a:
 		AUD_Freq = 96;
 		break;
 	case 0x0c:
-<<<<<<< HEAD
 		AUD_Freq = 176.4;
-=======
-		AUD_Freq = 176;
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 		break;
 	case 0x0e:
 		AUD_Freq = 192;

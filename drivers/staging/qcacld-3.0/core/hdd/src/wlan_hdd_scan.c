@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
  * Copyright (c) 2012-2018 The Linux Foundation. All rights reserved.
-=======
- * Copyright (c) 2012-2019 The Linux Foundation. All rights reserved.
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
  *
  * Permission to use, copy, modify, and/or distribute this software for
  * any purpose with or without fee is hereby granted, provided that the
@@ -661,7 +657,6 @@ static void hdd_update_dbs_scan_ctrl_ext_flag(hdd_context_t *hdd_ctx,
 		goto end;
 	}
 
-<<<<<<< HEAD
 	if (scan_req->scan_flags & SME_SCAN_FLAG_HIGH_ACCURACY) {
 		hdd_debug("DBS disabled due to high accuracy scan request");
 		goto end;
@@ -672,20 +667,6 @@ static void hdd_update_dbs_scan_ctrl_ext_flag(hdd_context_t *hdd_ctx,
 							scan_req->scan_flags);
 		scan_dbs_policy = SME_SCAN_DBS_POLICY_IGNORE_DUTY;
 		goto end;
-=======
-	if (hdd_ctx->config->honour_nl_scan_policy_flags) {
-		if (scan_req->scan_flags & SME_SCAN_FLAG_HIGH_ACCURACY) {
-			hdd_debug("DBS disabled for high accuracy request");
-			goto end;
-		}
-		if (scan_req->scan_flags & SME_SCAN_FLAG_LOW_POWER ||
-		    scan_req->scan_flags & SME_SCAN_FLAG_LOW_SPAN) {
-			hdd_debug("DBS enable for Low span/power request 0x%x",
-				  scan_req->scan_flags);
-			scan_dbs_policy = SME_SCAN_DBS_POLICY_IGNORE_DUTY;
-			goto end;
-		}
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	}
 	if (!(hdd_ctx->is_dbs_scan_duty_cycle_enabled)) {
 		scan_dbs_policy = SME_SCAN_DBS_POLICY_IGNORE_DUTY;

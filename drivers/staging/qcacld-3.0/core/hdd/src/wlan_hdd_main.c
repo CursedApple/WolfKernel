@@ -301,10 +301,6 @@ const char *hdd_device_mode_to_string(uint8_t device_mode)
 	CASE_RETURN_STRING(QDF_P2P_GO_MODE);
 	CASE_RETURN_STRING(QDF_FTM_MODE);
 	CASE_RETURN_STRING(QDF_IBSS_MODE);
-<<<<<<< HEAD
-=======
-	CASE_RETURN_STRING(QDF_MONITOR_MODE);
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	CASE_RETURN_STRING(QDF_P2P_DEVICE_MODE);
 	CASE_RETURN_STRING(QDF_OCB_MODE);
 	CASE_RETURN_STRING(QDF_NDI_MODE);
@@ -1972,16 +1968,7 @@ static int __hdd_mon_open(struct net_device *dev)
 	}
 
 	hdd_mon_mode_ether_setup(dev);
-<<<<<<< HEAD
 	ret = hdd_set_mon_rx_cb(dev);
-=======
-
-	if (cds_get_conparam() == QDF_GLOBAL_MONITOR_MODE)
-		ret = hdd_set_mon_rx_cb(dev);
-	else
-		ret = hdd_set_mon_mode_cb(dev);
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	set_bit(DEVICE_IFACE_OPENED, &adapter->event_flags);
 	return ret;
 }
@@ -2679,31 +2666,16 @@ static int __hdd_stop(struct net_device *dev)
 				     WLAN_STOP_ALL_NETIF_QUEUE_N_CARRIER,
 				     WLAN_CONTROL_PATH);
 
-<<<<<<< HEAD
 	hdd_debug("Disabling Auto Power save timer");
 	sme_ps_disable_auto_ps_timer(
 		WLAN_HDD_GET_HAL_CTX(adapter),
 		adapter->sessionId);
-=======
-	if (!wlan_hdd_is_session_type_monitor(adapter->device_mode)) {
-		hdd_debug("Disabling Auto Power save timer");
-		sme_ps_disable_auto_ps_timer(
-			WLAN_HDD_GET_HAL_CTX(adapter),
-			adapter->sessionId);
-	}
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 
 	if (adapter->device_mode == QDF_STA_MODE) {
 		hdd_debug("Sending Lpass stop notifcation");
 		hdd_lpass_notify_stop(hdd_ctx);
 	}
 
-<<<<<<< HEAD
-=======
-	if (wlan_hdd_is_session_type_monitor(adapter->device_mode))
-		hdd_reset_mon_mode_cb();
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	/*
 	 * NAN data interface is different in some sense. The traffic on NDI is
 	 * bursty in nature and depends on the need to transfer. The service
@@ -3243,10 +3215,6 @@ static void hdd_adapter_init_action_frame_random_mac(hdd_adapter_t *adapter)
  * @hdd_ctx: global hdd context
  * @macAddr: mac address to assign to the interface
  * @name: User-visible name of the interface
-<<<<<<< HEAD
-=======
- * @session_type: interface type to be created
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
  *
  * hdd adapter pointer would point to the netdev->priv space, this function
  * would retrive the pointer, and setup the hdd adapter configuration.
@@ -3256,12 +3224,7 @@ static void hdd_adapter_init_action_frame_random_mac(hdd_adapter_t *adapter)
 static hdd_adapter_t *hdd_alloc_station_adapter(hdd_context_t *hdd_ctx,
 						tSirMacAddr macAddr,
 						unsigned char name_assign_type,
-<<<<<<< HEAD
 						const char *name)
-=======
-						const char *name,
-						uint8_t session_type)
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 {
 	struct net_device *pWlanDev = NULL;
 	hdd_adapter_t *adapter = NULL;
@@ -3274,16 +3237,9 @@ static hdd_adapter_t *hdd_alloc_station_adapter(hdd_context_t *hdd_ctx,
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 17, 0)) || defined(WITH_BACKPORTS)
 				   name_assign_type,
 #endif
-<<<<<<< HEAD
 				(QDF_GLOBAL_MONITOR_MODE == cds_get_conparam() ?
 				hdd_mon_mode_ether_setup : ether_setup),
 				NUM_TX_QUEUES);
-=======
-			((QDF_GLOBAL_MONITOR_MODE == cds_get_conparam() ||
-			  wlan_hdd_is_session_type_monitor(session_type)) ?
-			  hdd_mon_mode_ether_setup : ether_setup),
-			NUM_TX_QUEUES);
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 
 	if (pWlanDev != NULL) {
 
@@ -3334,14 +3290,7 @@ static hdd_adapter_t *hdd_alloc_station_adapter(hdd_context_t *hdd_ctx,
 
 		hdd_set_tso_flags(hdd_ctx, pWlanDev);
 
-<<<<<<< HEAD
 		hdd_set_station_ops(adapter->dev);
-=======
-		if (wlan_hdd_is_session_type_monitor(session_type))
-			pWlanDev->netdev_ops = &wlan_mon_drv_ops;
-		else
-			hdd_set_station_ops(adapter->dev);
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 
 		hdd_dev_setup_destructor(pWlanDev);
 		pWlanDev->ieee80211_ptr = &adapter->wdev;
@@ -4513,11 +4462,7 @@ hdd_adapter_t *hdd_open_adapter(hdd_context_t *hdd_ctx, uint8_t session_type,
 	case QDF_MONITOR_MODE:
 		adapter = hdd_alloc_station_adapter(hdd_ctx, macAddr,
 						    name_assign_type,
-<<<<<<< HEAD
 						    iface_name);
-=======
-						    iface_name, session_type);
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 
 		if (NULL == adapter) {
 			hdd_err("failed to allocate adapter for session %d",
@@ -4622,11 +4567,7 @@ hdd_adapter_t *hdd_open_adapter(hdd_context_t *hdd_ctx, uint8_t session_type,
 	case QDF_FTM_MODE:
 		adapter = hdd_alloc_station_adapter(hdd_ctx, macAddr,
 						    name_assign_type,
-<<<<<<< HEAD
 						    "wlan0");
-=======
-						    "wlan0", session_type);
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 		if (NULL == adapter) {
 			hdd_err("Failed to allocate adapter for FTM mode");
 			return NULL;
@@ -4778,11 +4719,6 @@ QDF_STATUS hdd_close_all_adapters(hdd_context_t *hdd_ctx, bool rtnl_held)
 		if (pHddAdapterNode && QDF_STATUS_SUCCESS == status) {
 			wlan_hdd_release_intf_addr(hdd_ctx,
 			pHddAdapterNode->pAdapter->macAddressCurrent.bytes);
-<<<<<<< HEAD
-=======
-			cds_clear_concurrency_mode(
-				pHddAdapterNode->pAdapter->device_mode);
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 			hdd_cleanup_adapter(hdd_ctx, pHddAdapterNode->pAdapter,
 					    rtnl_held);
 
@@ -5062,14 +4998,6 @@ QDF_STATUS hdd_stop_adapter(hdd_context_t *hdd_ctx, hdd_adapter_t *adapter,
 			cds_flush_delayed_work(&adapter->acs_pending_work);
 			clear_bit(ACS_PENDING, &adapter->event_flags);
 		}
-<<<<<<< HEAD
-=======
-
-		/* Diassociate with all the peers before stop ap post */
-		if (test_bit(SOFTAP_BSS_STARTED, &adapter->event_flags))
-			wlan_hdd_del_station(adapter);
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 		hdd_ipa_flush(hdd_ctx);
 
 	case QDF_P2P_GO_MODE:
@@ -6006,14 +5934,6 @@ QDF_STATUS hdd_start_all_adapters(hdd_context_t *hdd_ctx)
 			hdd_delete_sta(adapter);
 			break;
 		case QDF_MONITOR_MODE:
-<<<<<<< HEAD
-=======
-			if (wlan_hdd_is_session_type_monitor(
-						QDF_MONITOR_MODE)) {
-				hdd_set_mon_mode_cb(adapter->dev);
-				break;
-			}
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 			hdd_init_station_mode(adapter);
 			hdd_set_mon_rx_cb(adapter->dev);
 			wlan_hdd_set_mon_chan(adapter, adapter->mon_chan,
@@ -6855,13 +6775,6 @@ static void hdd_wlan_exit(hdd_context_t *hdd_ctx)
 		hdd_cleanup_scan_queue(hdd_ctx, NULL);
 		hdd_abort_mac_scan_all_adapters(hdd_ctx);
 		hdd_abort_sched_scan_all_adapters(hdd_ctx);
-<<<<<<< HEAD
-=======
-
-		if (wlan_hdd_is_session_type_monitor(QDF_MONITOR_MODE))
-			hdd_reset_mon_mode_cb();
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 		hdd_stop_all_adapters(hdd_ctx, true);
 		hdd_deinit_all_adapters(hdd_ctx, false);
 	}
@@ -8167,7 +8080,6 @@ uint8_t hdd_is_mcc_mode_enabled(void)
 }
 
 /**
-<<<<<<< HEAD
  * hdd_get_safe_channel_from_pcl_and_acs_range() - Get safe channel for SAP
  * restart
  * @adapter: AP adapter, which should be checked for NULL
@@ -8273,8 +8185,6 @@ static uint8_t hdd_get_safe_channel_from_pcl_and_acs_range(
 }
 
 /**
-=======
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
  * hdd_restart_sap() - Restarts SAP on the given channel
  * @adapter: AP adapter
  * @channel: Channel
@@ -8430,13 +8340,8 @@ void hdd_unsafe_channel_restart_sap(hdd_context_t *hdd_ctxt)
 		}
 
 		restart_chan =
-<<<<<<< HEAD
 			hdd_get_safe_channel_from_pcl_and_acs_range(
 					adapter_temp);
-=======
-			wlansap_get_safe_channel_from_pcl_and_acs_range(
-					adapter_temp->sessionCtx.ap.sapContext);
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 		if (!restart_chan) {
 			hdd_err("fail to restart SAP");
 		} else {
@@ -8976,22 +8881,6 @@ list_destroy:
 	return ret;
 }
 
-<<<<<<< HEAD
-=======
-/*
- * enum hdd_block_shutdown - Control if driver allows modem shutdown
- * @HDD_UNBLOCK_MODEM_SHUTDOWN: Unblock shutdown
- * @HDD_BLOCK_MODEM_SHUTDOWN: Block shutdown
- *
- * On calling pld_block_shutdown API with the given values, modem
- * graceful shutdown is blocked/unblocked.
- */
-enum hdd_block_shutdown {
-	HDD_UNBLOCK_MODEM_SHUTDOWN,
-	HDD_BLOCK_MODEM_SHUTDOWN,
-};
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 /**
  * ie_whitelist_attrs_init() - initialize ie whitelisting attributes
  * @hdd_ctx: pointer to hdd context
@@ -9045,21 +8934,9 @@ static void hdd_iface_change_callback(void *priv)
 
 	ENTER();
 	hdd_debug("Interface change timer expired close the modules!");
-<<<<<<< HEAD
 	ret = hdd_wlan_stop_modules(hdd_ctx, false);
 	if (ret)
 		hdd_err("Failed to stop modules");
-=======
-
-	/* Block the modem graceful shutdown till stop modules is completed */
-	pld_block_shutdown(hdd_ctx->parent_dev, HDD_BLOCK_MODEM_SHUTDOWN);
-
-	ret = hdd_wlan_stop_modules(hdd_ctx, false);
-	if (ret)
-		hdd_err("Failed to stop modules");
-
-	pld_block_shutdown(hdd_ctx->parent_dev, HDD_UNBLOCK_MODEM_SHUTDOWN);
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	EXIT();
 }
 
@@ -9375,156 +9252,6 @@ static int hdd_open_concurrent_interface(hdd_context_t *hdd_ctx, bool rtnl_held)
 	return 0;
 }
 
-<<<<<<< HEAD
-=======
-#ifdef WLAN_FEATURE_PKT_CAPTURE
-
-/**
- * wlan_hdd_is_session_type_monitor() - check if session type is MONITOR
- * @session_type: session type
- *
- * Return: True - if session type for adapter is monitor, else False
- *
- */
-bool wlan_hdd_is_session_type_monitor(uint8_t session_type)
-{
-	if (cds_get_pktcap_mode_enable() &&
-	    QDF_MONITOR_MODE == session_type)
-		return true;
-	else
-		return false;
-}
-
-/**
- * wlan_hdd_check_mon_concurrency() - check if MONITOR and STA concurrency
- * is UP when packet capture mode is enabled.
- * @void
- *
- * Return: True - if STA and monitor concurrency is there, else False
- *
- */
-bool wlan_hdd_check_mon_concurrency(void)
-{
-	if (cds_get_pktcap_mode_enable()) {
-		if (cds_get_concurrency_mode() ==
-		    (QDF_STA_MASK | QDF_MONITOR_MASK)) {
-			hdd_err("STA + MON mode is UP");
-			return true;
-		}
-	}
-	return false;
-}
-
-/**
- * wlan_hdd_del_monitor() - delete monitor interface
- * @hdd_ctx: pointer to hdd context
- * @adapter: adapter to be deleted
- * @rtnl_held: rtnl lock held
- *
- * This function is invoked to delete monitor interface.
- *
- * Return: None
- */
-void wlan_hdd_del_monitor(hdd_context_t *hdd_ctx,
-			  hdd_adapter_t *adapter, bool rtnl_held)
-{
-	wlan_hdd_release_intf_addr(hdd_ctx,
-				   adapter->macAddressCurrent.bytes);
-	hdd_stop_adapter(hdd_ctx, adapter, true);
-	hdd_deinit_adapter(hdd_ctx, adapter, true);
-	hdd_close_adapter(hdd_ctx, adapter, true);
-
-	hdd_open_p2p_interface(hdd_ctx, true);
-}
-
-/**
- * wlan_hdd_add_monitor_check() - check for monitor intf and add if needed
- * @hdd_ctx: pointer to hdd context
- * @adapter: output pointer to hold created monitor adapter
- * @type: type of the interface
- * @name: name of the interface
- * @rtnl_held: True if RTNL lock is held
- * @name_assign_type: the name of assign type of the netdev
- *
- * Return: 0 - on success
- *         err code - on failure
- */
-int
-wlan_hdd_add_monitor_check(hdd_context_t *hdd_ctx, hdd_adapter_t **adapter,
-			   enum nl80211_iftype type, const char *name,
-			   bool rtnl_held, unsigned char name_assign_type)
-{
-	hdd_adapter_t *sta_adapter;
-	hdd_adapter_t *mon_adapter;
-	uint32_t mode;
-
-	*adapter = NULL;
-
-	if (!cds_get_pktcap_mode_enable())
-		return 0;
-
-	/*
-	 * If add interface request is for monitor mode, then it can run in
-	 * parallel with only one station interface.
-	 * If there is no existing station interface return error
-	 */
-	if (type != NL80211_IFTYPE_MONITOR)
-		return 0;
-
-	if (hdd_ctx->no_of_open_sessions[QDF_MONITOR_MODE]) {
-		hdd_err("monitor mode already exists, only one is possible");
-		return -EBUSY;
-	}
-
-	/* Ensure there is only one station interface */
-	if (hdd_ctx->no_of_open_sessions[QDF_STA_MODE] != 1) {
-		hdd_err("cannot add monitor mode, due to %u sta interfaces",
-			hdd_ctx->no_of_open_sessions[QDF_STA_MODE]);
-		return -EINVAL;
-	}
-
-	sta_adapter = hdd_get_adapter(hdd_ctx, QDF_STA_MODE);
-	if (!sta_adapter) {
-		hdd_err("No station adapter");
-		return -EINVAL;
-	}
-
-	if (hdd_ctx->no_of_open_sessions[QDF_SAP_MODE]) {
-		hdd_err("cannot add monitor mode, due to SAP concurrency");
-		return -EINVAL;
-	}
-
-	/* delete p2p interface */
-	for (mode = QDF_P2P_CLIENT_MODE; mode <= QDF_P2P_DEVICE_MODE; mode++) {
-		hdd_adapter_t *adapter;
-
-		if (mode == QDF_FTM_MODE ||
-		    mode == QDF_MONITOR_MODE ||
-		    mode == QDF_IBSS_MODE)
-			continue;
-
-		adapter = hdd_get_adapter(hdd_ctx, mode);
-		if (adapter)
-			hdd_close_adapter(hdd_ctx, adapter, rtnl_held);
-	}
-
-	mon_adapter = hdd_open_adapter(hdd_ctx, QDF_MONITOR_MODE, name,
-				       wlan_hdd_get_intf_addr(
-				       hdd_ctx,
-				       QDF_MONITOR_MODE),
-				       name_assign_type, rtnl_held);
-	if (!mon_adapter) {
-		hdd_err("hdd_open_adapter failed");
-		hdd_open_p2p_interface(hdd_ctx, rtnl_held);
-		return -EINVAL;
-	}
-
-	*adapter = mon_adapter;
-	return 0;
-}
-#endif /* WLAN_FEATURE_PKT_CAPTURE */
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 /**
  * hdd_open_interfaces - Open all required interfaces
  * hdd_ctx:	HDD context
@@ -13526,14 +13253,6 @@ void hdd_set_roaming_in_progress(bool value)
 
 	hdd_ctx->roaming_in_progress = value;
 	hdd_debug("Roaming in Progress set to %d", value);
-<<<<<<< HEAD
-=======
-	if (!hdd_ctx->roaming_in_progress) {
-		/* Reset scan reject params on successful roam complete */
-		hdd_debug("Reset scan reject params");
-		hdd_init_scan_reject_params(hdd_ctx);
-	}
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 }
 
 /**
@@ -13712,38 +13431,6 @@ void hdd_pld_ipa_uc_shutdown_pipes(void)
 	hdd_ipa_uc_force_pipe_shutdown(hdd_ctx);
 }
 
-<<<<<<< HEAD
-=======
-#ifdef NTH_BEACON_OFFLOAD
-/**
- * hdd_set_nth_beacon_offload() - Send the nth beacon offload command to FW
- * @adapter: HDD adapter
- * @value: Value of n, for which the nth beacon will be forwarded by the FW
- *
- * Return: QDF_STATUS_SUCCESS on success and failure status on failure
- */
-QDF_STATUS hdd_set_nth_beacon_offload(hdd_adapter_t *adapter, uint16_t value)
-{
-	int ret;
-
-	ret = sme_cli_set_command(adapter->sessionId,
-				  WMI_VDEV_PARAM_NTH_BEACON_TO_HOST,
-				  value, VDEV_CMD);
-	if (ret) {
-		hdd_err("WMI_VDEV_PARAM_NTH_BEACON_TO_HOST %d", ret);
-		return QDF_STATUS_E_FAILURE;
-	}
-
-	return QDF_STATUS_SUCCESS;
-}
-#else
-QDF_STATUS hdd_set_nth_beacon_offload(hdd_adapter_t *adapter, uint16_t value)
-{
-	return QDF_STATUS_SUCCESS;
-}
-#endif
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 /**
  * hdd_start_driver_ops_timer() - Starts driver ops inactivity timer
  * @drv_op: Enum indicating driver op

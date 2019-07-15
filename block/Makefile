@@ -21,11 +21,8 @@ obj-$(CONFIG_IOSCHED_CFQ)	+= cfq-iosched.o
 obj-$(CONFIG_IOSCHED_ANXIETY)	+= anxiety-iosched.o
 obj-$(CONFIG_IOSCHED_TEST)	+= test-iosched.o
 obj-$(CONFIG_IOSCHED_BFQ)	+= bfq-iosched.o
-<<<<<<< HEAD
 obj-$(CONFIG_IOSCHED_FIOPS)     += fiops-iosched.o
 obj-$(CONFIG_IOSCHED_SIO)       += sio-iosched.o
-=======
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 
 obj-$(CONFIG_BLOCK_COMPAT)	+= compat_ioctl.o
 obj-$(CONFIG_BLK_CMDLINE_PARSER)	+= cmdline-parser.o

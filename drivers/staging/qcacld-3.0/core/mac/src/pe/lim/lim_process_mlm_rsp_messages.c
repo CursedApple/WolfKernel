@@ -429,7 +429,6 @@ static void lim_send_mlm_assoc_req(tpAniSirGlobal mac_ctx,
 		(uint32_t *) assoc_req);
 }
 
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_process_mlm_rsp_messages.c
 #ifdef WLAN_FEATURE_11W
 /**
  * lim_pmf_comeback_timer_callback() -PMF callback handler
@@ -454,8 +453,6 @@ void lim_pmf_comeback_timer_callback(void *context)
 }
 #endif /* WLAN_FEATURE_11W */
 
-=======
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_process_mlm_rsp_messages.c
 /**
  * lim_process_mlm_auth_cnf()-Process Auth confirmation
  * @mac_ctx:  Pointer to Global MAC structure
@@ -1931,7 +1928,6 @@ void lim_process_sta_mlm_del_sta_rsp(tpAniSirGlobal pMac, tpSirMsgQ limMsgQ,
 			lim_mlm_state_str(psessionEntry->limMlmState));
 		statusCode = eSIR_SME_REFUSED;
 		goto end;
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_process_mlm_rsp_messages.c
 	}
 	pe_debug("STA AssocID %d MAC", pStaDs->assocId);
 	lim_print_mac_addr(pMac, pStaDs->staAddr, LOGD);
@@ -1943,19 +1939,6 @@ void lim_process_sta_mlm_del_sta_rsp(tpAniSirGlobal pMac, tpSirMsgQ limMsgQ,
 		qdf_mem_free(pDelStaParams);
 		limMsgQ->bodyptr = NULL;
 	}
-=======
-	}
-	pe_debug("STA AssocID %d MAC", pStaDs->assocId);
-	lim_print_mac_addr(pMac, pStaDs->staAddr, LOGD);
-	/*
-	 * we must complete all cleanup related to delSta before
-	 * calling limDelBSS.
-	 */
-	if (0 != limMsgQ->bodyptr) {
-		qdf_mem_free(pDelStaParams);
-		limMsgQ->bodyptr = NULL;
-	}
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_process_mlm_rsp_messages.c
 	/* Proceed to do DelBSS even if DelSta resulted in failure */
 	statusCode = (tSirResultCodes)lim_del_bss(pMac, pStaDs, 0,
 			psessionEntry);
@@ -2737,11 +2720,7 @@ void lim_process_mlm_set_sta_key_rsp(tpAniSirGlobal mac_ctx,
 	session_entry = pe_find_session_by_session_id(mac_ctx, session_id);
 	if (session_entry == NULL) {
 		pe_err("session does not exist for given session_id");
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_process_mlm_rsp_messages.c
 		qdf_mem_zero(msg->bodyptr, sizeof(tSetBssKeyParams));
-=======
-		qdf_mem_zero(msg->bodyptr, sizeof(tSetStaKeyParams));
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_process_mlm_rsp_messages.c
 		qdf_mem_free(msg->bodyptr);
 		msg->bodyptr = NULL;
 		lim_send_sme_set_context_rsp(mac_ctx,
@@ -2767,11 +2746,7 @@ void lim_process_mlm_set_sta_key_rsp(tpAniSirGlobal mac_ctx,
 	else
 		mlm_set_key_cnf.key_len_nonzero = false;
 
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_process_mlm_rsp_messages.c
 	qdf_mem_zero(msg->bodyptr, sizeof(tSetBssKeyParams));
-=======
-	qdf_mem_zero(msg->bodyptr, sizeof(tSetStaKeyParams));
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_process_mlm_rsp_messages.c
 
 	qdf_mem_free(msg->bodyptr);
 	msg->bodyptr = NULL;
@@ -2790,11 +2765,6 @@ void lim_process_mlm_set_sta_key_rsp(tpAniSirGlobal mac_ctx,
 			 * Free the buffer cached for the global
 			 * mac_ctx->lim.gpLimMlmSetKeysReq
 			 */
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_process_mlm_rsp_messages.c
-=======
-			qdf_mem_zero(mac_ctx->lim.gpLimMlmSetKeysReq,
-				     sizeof(tLimMlmSetKeysReq));
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_process_mlm_rsp_messages.c
 			qdf_mem_free(mac_ctx->lim.gpLimMlmSetKeysReq);
 			mac_ctx->lim.gpLimMlmSetKeysReq = NULL;
 		}
@@ -2838,10 +2808,6 @@ void lim_process_mlm_set_bss_key_rsp(tpAniSirGlobal mac_ctx,
 	if (session_entry == NULL) {
 		pe_err("session does not exist for given sessionId [%d]",
 			session_id);
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_process_mlm_rsp_messages.c
-=======
-		qdf_mem_zero(msg->bodyptr, sizeof(tSetBssKeyParams));
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_process_mlm_rsp_messages.c
 		qdf_mem_free(msg->bodyptr);
 		msg->bodyptr = NULL;
 		lim_send_sme_set_context_rsp(mac_ctx, set_key_cnf.peer_macaddr,
@@ -2899,11 +2865,6 @@ void lim_process_mlm_set_bss_key_rsp(tpAniSirGlobal mac_ctx,
 		 * Free the buffer cached for the
 		 * global mac_ctx->lim.gpLimMlmSetKeysReq
 		 */
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_process_mlm_rsp_messages.c
-=======
-		qdf_mem_zero(mac_ctx->lim.gpLimMlmSetKeysReq,
-			     sizeof(tLimMlmSetKeysReq));
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_process_mlm_rsp_messages.c
 		qdf_mem_free(mac_ctx->lim.gpLimMlmSetKeysReq);
 		mac_ctx->lim.gpLimMlmSetKeysReq = NULL;
 	}

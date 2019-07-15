@@ -4141,10 +4141,6 @@ static void __lim_process_roam_scan_offload_req(tpAniSirGlobal mac_ctx,
 	local_ie_buf = qdf_mem_malloc(MAX_DEFAULT_SCAN_IE_LEN);
 	if (!local_ie_buf) {
 		pe_err("Mem Alloc failed for local_ie_buf");
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_process_sme_req_messages.c
-=======
-		qdf_mem_zero(req_buffer, sizeof(tSirRoamOffloadScanReq));
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_process_sme_req_messages.c
 		qdf_mem_free(req_buffer);
 		return;
 	}
@@ -4172,10 +4168,6 @@ static void __lim_process_roam_scan_offload_req(tpAniSirGlobal mac_ctx,
 	status = wma_post_ctrl_msg(mac_ctx, &wma_msg);
 	if (eSIR_SUCCESS != status) {
 		pe_err("Posting WMA_ROAM_SCAN_OFFLOAD_REQ failed");
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_process_sme_req_messages.c
-=======
-		qdf_mem_zero(req_buffer, sizeof(tSirRoamOffloadScanReq));
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_process_sme_req_messages.c
 		qdf_mem_free(req_buffer);
 	}
 }

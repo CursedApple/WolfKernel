@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_api.c
  * Copyright (c) 2011-2018 The Linux Foundation. All rights reserved.
-=======
- * Copyright (c) 2011-2019 The Linux Foundation. All rights reserved.
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_api.c
  *
  * Permission to use, copy, modify, and/or distribute this software for
  * any purpose with or without fee is hereby granted, provided that the
@@ -611,11 +607,6 @@ void lim_cleanup(tpAniSirGlobal pMac)
 	}
 
 	if (pMac->lim.gpLimMlmSetKeysReq != NULL) {
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_api.c
-=======
-		qdf_mem_zero(pMac->lim.gpLimMlmSetKeysReq,
-			     sizeof(tLimMlmSetKeysReq));
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_api.c
 		qdf_mem_free(pMac->lim.gpLimMlmSetKeysReq);
 		pMac->lim.gpLimMlmSetKeysReq = NULL;
 	}
@@ -730,12 +721,9 @@ static void pe_shutdown_notifier_cb(void *ctx)
 			if (LIM_IS_AP_ROLE(session))
 				qdf_mc_timer_stop(&session->
 						 protection_fields_reset_timer);
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_api.c
 #ifdef WLAN_FEATURE_11W
 			qdf_mc_timer_stop(&session->pmfComebackTimer);
 #endif
-=======
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_api.c
 		}
 	}
 }
@@ -855,21 +843,12 @@ tSirRetStatus pe_close(tpAniSirGlobal pMac)
 	}
 	qdf_list_destroy(&pMac->lim.gLimMgmtFrameRegistratinQueue);
 	qdf_mutex_destroy(&pMac->lim.lim_frame_register_lock);
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_api.c
 
 	if (pMac->lim.limDisassocDeauthCnfReq.pMlmDeauthReq) {
 		qdf_mem_free(pMac->lim.limDisassocDeauthCnfReq.pMlmDeauthReq);
 		pMac->lim.limDisassocDeauthCnfReq.pMlmDeauthReq = NULL;
 	}
 
-=======
-
-	if (pMac->lim.limDisassocDeauthCnfReq.pMlmDeauthReq) {
-		qdf_mem_free(pMac->lim.limDisassocDeauthCnfReq.pMlmDeauthReq);
-		pMac->lim.limDisassocDeauthCnfReq.pMlmDeauthReq = NULL;
-	}
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_api.c
 	qdf_spinlock_destroy(&pMac->sys.bbt_mgmt_lock);
 	for (i = 0; i < pMac->lim.maxBssId; i++) {
 		if (pMac->lim.gpSession[i].valid == true)
@@ -1983,7 +1962,6 @@ lim_roam_fill_bss_descr(tpAniSirGlobal pMac,
 	}
 	qdf_mem_free(parsed_frm_ptr);
 	return QDF_STATUS_SUCCESS;
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_api.c
 }
 
 #if defined(WLAN_FEATURE_FILS_SK)
@@ -2039,63 +2017,6 @@ static const char *pe_roam_op_code_to_string(uint8_t roam_op_code)
 	}
 }
 
-=======
-}
-
-#if defined(WLAN_FEATURE_FILS_SK)
-/**
- * lim_copy_and_free_hlp_data_from_session - Copy HLP info
- * @session_ptr: PE session
- * @roam_sync_ind_ptr: Roam Synch Indication pointer
- *
- * This API is used to copy the parsed HLP info from PE session
- * to roam synch indication data. THe HLP info is expected to be
- * parsed/stored in PE session already from assoc IE's received
- * from fw as part of Roam Synch Indication.
- *
- * Return: None
- */
-static void lim_copy_and_free_hlp_data_from_session(tpPESession session_ptr,
-				    roam_offload_synch_ind *roam_sync_ind_ptr)
-{
-	if (session_ptr->hlp_data && session_ptr->hlp_data_len) {
-		cds_copy_hlp_info(&session_ptr->dst_mac,
-				&session_ptr->src_mac,
-				session_ptr->hlp_data_len,
-				session_ptr->hlp_data,
-				&roam_sync_ind_ptr->dst_mac,
-				&roam_sync_ind_ptr->src_mac,
-				&roam_sync_ind_ptr->hlp_data_len,
-				roam_sync_ind_ptr->hlp_data);
-		qdf_mem_free(session_ptr->hlp_data);
-		session_ptr->hlp_data = NULL;
-		session_ptr->hlp_data_len = 0;
-	}
-}
-#else
-static inline void lim_copy_and_free_hlp_data_from_session(
-					tpPESession session_ptr,
-					roam_offload_synch_ind
-					*roam_sync_ind_ptr)
-{}
-#endif
-
-static const char *pe_roam_op_code_to_string(uint8_t roam_op_code)
-{
-	switch (roam_op_code) {
-	CASE_RETURN_STRING(SIR_ROAM_SYNCH_PROPAGATION);
-	CASE_RETURN_STRING(SIR_ROAMING_DEREGISTER_STA);
-	CASE_RETURN_STRING(SIR_ROAMING_START);
-	CASE_RETURN_STRING(SIR_ROAMING_ABORT);
-	CASE_RETURN_STRING(SIR_ROAM_SYNCH_COMPLETE);
-	CASE_RETURN_STRING(SIR_ROAM_SYNCH_NAPI_OFF);
-	CASE_RETURN_STRING(SIR_ROAMING_INVOKE_FAIL);
-	default:
-		return "none";
-	}
-}
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_api.c
 /**
  * pe_roam_synch_callback() - PE level callback for roam synch propagation
  * @mac_ctx: MAC Context
@@ -2169,7 +2090,6 @@ QDF_STATUS pe_roam_synch_callback(tpAniSirGlobal mac_ctx,
 		break;
 	default:
 		return status;
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_api.c
 	}
 
 	/*
@@ -2185,23 +2105,6 @@ QDF_STATUS pe_roam_synch_callback(tpAniSirGlobal mac_ctx,
 		pe_err("LFR3:Failed to fill Bss Descr");
 		return status;
 	}
-=======
-	}
-
-	/*
-	 * If deauth from AP already in progress, ignore Roam Synch Indication
-	 * from firmware.
-	 */
-	if (session_ptr->limSmeState != eLIM_SME_LINK_EST_STATE) {
-		pe_err("LFR3: Not in Link est state");
-		return status;
-	}
-	status = lim_roam_fill_bss_descr(mac_ctx, roam_sync_ind_ptr, bss_desc);
-	if (!QDF_IS_STATUS_SUCCESS(status)) {
-		pe_err("LFR3:Failed to fill Bss Descr");
-		return status;
-	}
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_api.c
 	status = QDF_STATUS_E_FAILURE;
 	ft_session_ptr = pe_create_session(mac_ctx, bss_desc->bssId,
 			&session_id, mac_ctx->lim.maxStation,
@@ -2246,7 +2149,6 @@ QDF_STATUS pe_roam_synch_callback(tpAniSirGlobal mac_ctx,
 		pe_err("LFR3:failed to lookup hash entry");
 		ft_session_ptr->bRoamSynchInProgress = false;
 		return status;
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_api.c
 	}
 	session_ptr->limSmeState = eLIM_SME_IDLE_STATE;
 	lim_cleanup_rx_path(mac_ctx, curr_sta_ds, session_ptr);
@@ -2351,112 +2253,6 @@ QDF_STATUS pe_roam_synch_callback(tpAniSirGlobal mac_ctx,
 		ft_session_ptr->tspecIes = NULL;
 		ft_session_ptr->tspecLen = 0;
 	}
-=======
-	}
-	session_ptr->limSmeState = eLIM_SME_IDLE_STATE;
-	lim_cleanup_rx_path(mac_ctx, curr_sta_ds, session_ptr);
-	lim_delete_dph_hash_entry(mac_ctx, curr_sta_ds->staAddr,
-			aid, session_ptr);
-	pe_delete_session(mac_ctx, session_ptr);
-	session_ptr = NULL;
-	curr_sta_ds = dph_add_hash_entry(mac_ctx,
-			roam_sync_ind_ptr->bssid.bytes, DPH_STA_HASH_INDEX_PEER,
-			&ft_session_ptr->dph.dphHashTable);
-	if (curr_sta_ds == NULL) {
-		pe_err("LFR3:failed to add hash entry for");
-		lim_print_mac_addr(mac_ctx,
-				add_bss_params->staContext.staMac, LOGE);
-		ft_session_ptr->bRoamSynchInProgress = false;
-		return status;
-	}
-
-	add_bss_params->bssIdx = roam_sync_ind_ptr->roamedVdevId;
-	ft_session_ptr->bssIdx = (uint8_t) add_bss_params->bssIdx;
-
-	curr_sta_ds->bssId = add_bss_params->bssIdx;
-	curr_sta_ds->staIndex =
-		add_bss_params->staContext.staIdx;
-	curr_sta_ds->ucUcastSig =
-		add_bss_params->staContext.ucUcastSig;
-	curr_sta_ds->ucBcastSig =
-		add_bss_params->staContext.ucBcastSig;
-	rrm_cache_mgmt_tx_power(mac_ctx,
-		add_bss_params->txMgmtPower, ft_session_ptr);
-	mac_ctx->roam.reassocRespLen = roam_sync_ind_ptr->reassocRespLength;
-	mac_ctx->roam.pReassocResp =
-		qdf_mem_malloc(mac_ctx->roam.reassocRespLen);
-	if (NULL == mac_ctx->roam.pReassocResp) {
-		pe_err("LFR3:assoc resp mem alloc failed");
-		ft_session_ptr->bRoamSynchInProgress = false;
-		return QDF_STATUS_E_NOMEM;
-	}
-	qdf_mem_copy(mac_ctx->roam.pReassocResp,
-			(uint8_t *)roam_sync_ind_ptr +
-			roam_sync_ind_ptr->reassocRespOffset,
-			mac_ctx->roam.reassocRespLen);
-
-	pe_debug("LFR3:the reassoc resp frame data:");
-	QDF_TRACE_HEX_DUMP(QDF_MODULE_ID_SME, QDF_TRACE_LEVEL_DEBUG,
-			mac_ctx->roam.pReassocResp,
-			mac_ctx->roam.reassocRespLen);
-	ft_session_ptr->bRoamSynchInProgress = true;
-
-	lim_process_assoc_rsp_frame(mac_ctx, mac_ctx->roam.pReassocResp,
-			LIM_REASSOC, ft_session_ptr);
-
-	lim_copy_and_free_hlp_data_from_session(ft_session_ptr,
-						roam_sync_ind_ptr);
-
-	roam_sync_ind_ptr->aid = ft_session_ptr->limAID;
-	curr_sta_ds->mlmStaContext.mlmState =
-		eLIM_MLM_LINK_ESTABLISHED_STATE;
-	curr_sta_ds->nss = ft_session_ptr->nss;
-	roam_sync_ind_ptr->nss = ft_session_ptr->nss;
-	ft_session_ptr->limMlmState = eLIM_MLM_LINK_ESTABLISHED_STATE;
-	lim_init_tdls_data(mac_ctx, ft_session_ptr);
-	join_rsp_len = ft_session_ptr->RICDataLen +
-			sizeof(tSirSmeJoinRsp) - sizeof(uint8_t);
-
-#ifdef FEATURE_WLAN_ESE
-	join_rsp_len += ft_session_ptr->tspecLen;
-	pe_debug("tspecLen: %d", ft_session_ptr->tspecLen);
-#endif
-
-	roam_sync_ind_ptr->join_rsp = qdf_mem_malloc(join_rsp_len);
-	if (NULL == roam_sync_ind_ptr->join_rsp) {
-		pe_err("LFR3:mem alloc failed");
-		ft_session_ptr->bRoamSynchInProgress = false;
-		if (mac_ctx->roam.pReassocResp)
-			qdf_mem_free(mac_ctx->roam.pReassocResp);
-		mac_ctx->roam.pReassocResp = NULL;
-		return QDF_STATUS_E_NOMEM;
-	}
-
-	pe_debug("Session RicLength: %d", ft_session_ptr->RICDataLen);
-	if (ft_session_ptr->ricData != NULL) {
-		roam_sync_ind_ptr->join_rsp->parsedRicRspLen =
-			ft_session_ptr->RICDataLen;
-		qdf_mem_copy(roam_sync_ind_ptr->join_rsp->frames,
-				ft_session_ptr->ricData,
-				roam_sync_ind_ptr->join_rsp->parsedRicRspLen);
-		qdf_mem_free(ft_session_ptr->ricData);
-		ft_session_ptr->ricData = NULL;
-		ft_session_ptr->RICDataLen = 0;
-	}
-
-#ifdef FEATURE_WLAN_ESE
-	if (ft_session_ptr->tspecIes != NULL) {
-		roam_sync_ind_ptr->join_rsp->tspecIeLen =
-			ft_session_ptr->tspecLen;
-		qdf_mem_copy(roam_sync_ind_ptr->join_rsp->frames +
-				roam_sync_ind_ptr->join_rsp->parsedRicRspLen,
-				ft_session_ptr->tspecIes,
-				roam_sync_ind_ptr->join_rsp->tspecIeLen);
-		qdf_mem_free(ft_session_ptr->tspecIes);
-		ft_session_ptr->tspecIes = NULL;
-		ft_session_ptr->tspecLen = 0;
-	}
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_api.c
 #endif
 
 	roam_sync_ind_ptr->join_rsp->vht_channel_width =
@@ -2477,17 +2273,10 @@ QDF_STATUS pe_roam_synch_callback(tpAniSirGlobal mac_ctx,
 	if (mac_ctx->roam.pReassocResp)
 		qdf_mem_free(mac_ctx->roam.pReassocResp);
 	mac_ctx->roam.pReassocResp = NULL;
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_api.c
 
 	if (roam_sync_ind_ptr->authStatus == CSR_ROAM_AUTH_STATUS_AUTHENTICATED)
 		ft_session_ptr->is_key_installed = true;
 
-=======
-
-	if (roam_sync_ind_ptr->authStatus == CSR_ROAM_AUTH_STATUS_AUTHENTICATED)
-		ft_session_ptr->is_key_installed = true;
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_api.c
 	return QDF_STATUS_SUCCESS;
 }
 #endif

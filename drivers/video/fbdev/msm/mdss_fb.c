@@ -56,13 +56,9 @@
 #include "mdss_smmu.h"
 #include "mdss_mdp.h"
 
-<<<<<<< HEAD
 #ifdef CONFIG_KLAPSE
 #include "klapse.h"
 #endif
-=======
-#include "mdss_livedisplay.h"
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 
 #ifdef CONFIG_FB_MSM_TRIPLE_BUFFER
 #define MDSS_FB_NUM 3
@@ -110,15 +106,12 @@ static ssize_t _name##_store(struct device *dev, \
 	return ret ? ret : count; \
 }
 
-<<<<<<< HEAD
 #define MDSS_BRIGHT_TO_BL_DIM(out, v) do {\
 			out = (12*v*v+1393*v+3060)/4465;\
 			} while (0)
 bool backlight_dimmer = false;
 module_param(backlight_dimmer, bool, 0644);
 
-=======
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 static struct fb_info *fbi_list[MAX_FBI_LIST];
 static int fbi_list_index;
 
@@ -1326,11 +1319,7 @@ static int mdss_fb_create_sysfs(struct msm_fb_data_type *mfd)
 		pr_err("panel parameter sysfs creation failed, rc=%d\n", rc);
 
 err:
-<<<<<<< HEAD
 	return rc;
-=======
-	return mdss_livedisplay_create_sysfs(mfd);
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 }
 
 static void mdss_fb_remove_sysfs(struct msm_fb_data_type *mfd)

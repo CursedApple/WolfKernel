@@ -4317,16 +4317,6 @@ struct reg_table_entry g_registry_table[] = {
 		CFG_ADAPTIVE_EXTSCAN_DWELL_MODE_MIN,
 		CFG_ADAPTIVE_EXTSCAN_DWELL_MODE_MAX),
 
-<<<<<<< HEAD
-=======
-	REG_VARIABLE(CFG_HONOUR_NL_SCAN_POLICY_FLAGS_NAME, WLAN_PARAM_Integer,
-		     struct hdd_config, honour_nl_scan_policy_flags,
-		     VAR_FLAGS_OPTIONAL | VAR_FLAGS_RANGE_CHECK_ASSUME_DEFAULT,
-		     CFG_HONOUR_NL_SCAN_POLICY_FLAGS_DEFAULT,
-		     CFG_HONOUR_NL_SCAN_POLICY_FLAGS_MIN,
-		     CFG_HONOUR_NL_SCAN_POLICY_FLAGS_MAX),
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	REG_VARIABLE(CFG_ADAPTIVE_DWELL_MODE_ENABLED_NAME, WLAN_PARAM_Integer,
 		struct hdd_config, adaptive_dwell_mode_enabled,
 		VAR_FLAGS_OPTIONAL | VAR_FLAGS_RANGE_CHECK_ASSUME_DEFAULT,
@@ -5823,31 +5813,6 @@ struct reg_table_entry g_registry_table[] = {
 		     CFG_ROAM_PREAUTH_NO_ACK_TIMEOUT_DEFAULT,
 		     CFG_ROAM_PREAUTH_NO_ACK_TIMEOUT_MIN,
 		     CFG_ROAM_PREAUTH_NO_ACK_TIMEOUT_MAX),
-<<<<<<< HEAD
-=======
-
-	REG_VARIABLE(CFG_NTH_BEACON_REPORTING_OFFLOAD_NAME,
-		     WLAN_PARAM_Integer,
-		     struct hdd_config, beacon_reporting,
-		     VAR_FLAGS_OPTIONAL | VAR_FLAGS_RANGE_CHECK_ASSUME_DEFAULT,
-		     CFG_NTH_BEACON_REPORTING_OFFLOAD_DEFAULT,
-		     CFG_NTH_BEACON_REPORTING_OFFLOAD_MIN,
-		     CFG_NTH_BEACON_REPORTING_OFFLOAD_MAX),
-
-	REG_VARIABLE(CFG_PKTCAP_MODE_ENABLE_NAME, WLAN_PARAM_Integer,
-		     struct hdd_config, pktcap_mode_enable,
-		     VAR_FLAGS_OPTIONAL | VAR_FLAGS_RANGE_CHECK_ASSUME_DEFAULT,
-		     CFG_PKTCAP_MODE_ENABLE_DEFAULT,
-		     CFG_PKTCAP_MODE_ENABLE_MIN,
-		     CFG_PKTCAP_MODE_ENABLE_MAX),
-
-	REG_VARIABLE(CFG_PKTCAPTURE_MODE_NAME, WLAN_PARAM_Integer,
-		     struct hdd_config, pktcapture_mode,
-		     VAR_FLAGS_OPTIONAL | VAR_FLAGS_RANGE_CHECK_ASSUME_DEFAULT,
-		     CFG_PKTCAPTURE_MODE_DEFAULT,
-		     CFG_PKTCAPTURE_MODE_MIN,
-		     CFG_PKTCAPTURE_MODE_MAX),
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 };
 
 /**
@@ -7714,12 +7679,6 @@ void hdd_cfg_print(hdd_context_t *pHddCtx)
 		CFG_ADAPTIVE_EXTSCAN_DWELL_MODE_NAME,
 		pHddCtx->config->extscan_adaptive_dwell_mode);
 	hdd_debug("Name = [%s] Value = [%u]",
-<<<<<<< HEAD
-=======
-		  CFG_HONOUR_NL_SCAN_POLICY_FLAGS_NAME,
-		  pHddCtx->config->honour_nl_scan_policy_flags);
-	hdd_debug("Name = [%s] Value = [%u]",
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 		CFG_ADAPTIVE_DWELL_MODE_ENABLED_NAME,
 		pHddCtx->config->adaptive_dwell_mode_enabled);
 	hdd_debug("Name = [%s] Value = [%u]",
@@ -8022,16 +7981,6 @@ void hdd_cfg_print(hdd_context_t *pHddCtx)
 		  pHddCtx->config->btm_sticky_time);
 	hdd_debug("Name = [btm_query_bitmask] value = [0x%x]",
 		  pHddCtx->config->btm_query_bitmask);
-<<<<<<< HEAD
-=======
-	hdd_debug("Name = [%s] value = [%u]",
-		  CFG_NTH_BEACON_REPORTING_OFFLOAD_NAME,
-		  pHddCtx->config->beacon_reporting);
-	hdd_debug("Name = [%s] value = [%d]",
-		  CFG_PKTCAP_MODE_ENABLE_NAME, pHddCtx->config->pktcap_mode_enable);
-	hdd_debug("Name = [%s] value = [%d]",
-		  CFG_PKTCAPTURE_MODE_NAME, pHddCtx->config->pktcapture_mode);
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 }
 
 /**
@@ -8321,25 +8270,6 @@ static void hdd_set_rx_mode_value(hdd_context_t *hdd_ctx)
 }
 
 /**
-<<<<<<< HEAD
-=======
- * hdd_set_pktcapture_mode_value() - set pktcapture_mode values
- * @hdd_ctx: hdd context
- *
- * Return: none
- */
-static void hdd_set_pktcapture_mode_value(hdd_context_t *hdd_ctx)
-{
-	if (hdd_ctx->config->pktcapture_mode > CFG_PKTCAPTURE_MODE_MAX) {
-		hdd_warn("pktcapture_mode wrong configuration. Make it default");
-		hdd_ctx->config->pktcapture_mode = CFG_PKTCAPTURE_MODE_DEFAULT;
-	}
-
-	hdd_ctx->pktcapture_mode = hdd_ctx->config->pktcapture_mode;
-}
-
-/**
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
  * hdd_parse_config_ini() - parse the ini configuration file
  * @pHddCtx: the pointer to hdd context
  *
@@ -8443,10 +8373,6 @@ QDF_STATUS hdd_parse_config_ini(hdd_context_t *pHddCtx)
 	/* Loop through the registry table and apply all these configs */
 	qdf_status = hdd_apply_cfg_ini(pHddCtx, cfgIniTable, i);
 	hdd_set_rx_mode_value(pHddCtx);
-<<<<<<< HEAD
-=======
-	hdd_set_pktcapture_mode_value(pHddCtx);
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	if (QDF_GLOBAL_MONITOR_MODE == cds_get_conparam())
 		hdd_override_all_ps(pHddCtx);
 
@@ -10708,11 +10634,6 @@ QDF_STATUS hdd_set_sme_config(hdd_context_t *pHddCtx)
 			pHddCtx->config->scan_adaptive_dwell_mode;
 	smeConfig->csrConfig.scan_adaptive_dwell_mode_nc =
 			pHddCtx->config->scan_adaptive_dwell_mode_nc;
-<<<<<<< HEAD
-=======
-	smeConfig->csrConfig.honour_nl_scan_policy_flags =
-			pHddCtx->config->honour_nl_scan_policy_flags;
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	smeConfig->csrConfig.roamscan_adaptive_dwell_mode =
 			pHddCtx->config->roamscan_adaptive_dwell_mode;
 	smeConfig->csrConfig.roam_force_rssi_trigger =

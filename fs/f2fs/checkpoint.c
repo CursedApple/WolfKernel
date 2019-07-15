@@ -83,16 +83,10 @@ repeat:
 
 	fio.page = page;
 
-<<<<<<< HEAD
 	err = f2fs_submit_page_bio(&fio);
 	if (err) {
 		f2fs_put_page(page, 1);
 		return ERR_PTR(err);
-=======
-	if (f2fs_submit_page_bio(&fio)) {
-		f2fs_put_page(page, 1);
-		goto repeat;
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	}
 
 	lock_page(page);
@@ -136,7 +130,6 @@ struct page *f2fs_get_tmp_page(struct f2fs_sb_info *sbi, pgoff_t index)
 	return __get_meta_page(sbi, index, false);
 }
 
-<<<<<<< HEAD
 static bool __is_bitmap_valid(struct f2fs_sb_info *sbi, block_t blkaddr,
 							int type)
 {
@@ -162,9 +155,6 @@ static bool __is_bitmap_valid(struct f2fs_sb_info *sbi, block_t blkaddr,
 }
 
 bool f2fs_is_valid_blkaddr(struct f2fs_sb_info *sbi,
-=======
-bool f2fs_is_valid_meta_blkaddr(struct f2fs_sb_info *sbi,
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 					block_t blkaddr, int type)
 {
 	switch (type) {
@@ -185,7 +175,6 @@ bool f2fs_is_valid_meta_blkaddr(struct f2fs_sb_info *sbi,
 			return false;
 		break;
 	case META_POR:
-<<<<<<< HEAD
 		if (unlikely(blkaddr >= MAX_BLKADDR(sbi) ||
 			blkaddr < MAIN_BLKADDR(sbi)))
 			return false;
@@ -207,10 +196,6 @@ bool f2fs_is_valid_meta_blkaddr(struct f2fs_sb_info *sbi,
 	case META_GENERIC:
 		if (unlikely(blkaddr < SEG0_BLKADDR(sbi) ||
 			blkaddr >= MAIN_BLKADDR(sbi)))
-=======
-		if (unlikely(blkaddr >= MAX_BLKADDR(sbi) ||
-			blkaddr < MAIN_BLKADDR(sbi)))
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 			return false;
 		break;
 	default:
@@ -236,11 +221,7 @@ int f2fs_ra_meta_pages(struct f2fs_sb_info *sbi, block_t start, int nrpages,
 						REQ_RAHEAD,
 		.encrypted_page = NULL,
 		.in_list = false,
-<<<<<<< HEAD
 		.is_por = (type == META_POR),
-=======
-		.is_meta = (type != META_POR),
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	};
 	struct blk_plug plug;
 
@@ -250,11 +231,7 @@ int f2fs_ra_meta_pages(struct f2fs_sb_info *sbi, block_t start, int nrpages,
 	blk_start_plug(&plug);
 	for (; nrpages-- > 0; blkno++) {
 
-<<<<<<< HEAD
 		if (!f2fs_is_valid_blkaddr(sbi, blkno, type))
-=======
-		if (!f2fs_is_valid_meta_blkaddr(sbi, blkno, type))
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 			goto out;
 
 		switch (type) {
@@ -845,17 +822,12 @@ static int get_checkpoint_version(struct f2fs_sb_info *sbi, block_t cp_addr,
 	if (IS_ERR(*cp_page))
 		return PTR_ERR(*cp_page);
 
-<<<<<<< HEAD
 	*cp_block = (struct f2fs_checkpoint *)page_address(*cp_page);
 
 	crc_offset = le32_to_cpu((*cp_block)->checksum_offset);
 	if (crc_offset < CP_MIN_CHKSUM_OFFSET ||
 			crc_offset > CP_CHKSUM_OFFSET) {
 		f2fs_put_page(*cp_page, 1);
-=======
-	crc_offset = le32_to_cpu((*cp_block)->checksum_offset);
-	if (crc_offset > (blk_size - sizeof(__le32))) {
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 		f2fs_msg(sbi->sb, KERN_WARNING,
 			"invalid crc_offset: %zu", crc_offset);
 		return -EINVAL;
@@ -872,7 +844,6 @@ static int get_checkpoint_version(struct f2fs_sb_info *sbi, block_t cp_addr,
 		}
 	}
 
-<<<<<<< HEAD
 	crc = f2fs_checkpoint_chksum(sbi, *cp_block);
 	if (crc != cur_cp_crc(*cp_block)) {
 		f2fs_put_page(*cp_page, 1);
@@ -880,8 +851,6 @@ static int get_checkpoint_version(struct f2fs_sb_info *sbi, block_t cp_addr,
 		return -EINVAL;
 	}
 
-=======
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	*version = cur_cp_version(*cp_block);
 	return 0;
 }
@@ -897,7 +866,6 @@ static struct page *validate_checkpoint(struct f2fs_sb_info *sbi,
 	err = get_checkpoint_version(sbi, cp_addr, &cp_block,
 					&cp_page_1, version);
 	if (err)
-<<<<<<< HEAD
 		return NULL;
 
 	if (le32_to_cpu(cp_block->cp_pack_total_block_count) >
@@ -907,20 +875,13 @@ static struct page *validate_checkpoint(struct f2fs_sb_info *sbi,
 			le32_to_cpu(cp_block->cp_pack_total_block_count));
 		goto invalid_cp;
 	}
-=======
-		goto invalid_cp1;
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	pre_version = *version;
 
 	cp_addr += le32_to_cpu(cp_block->cp_pack_total_block_count) - 1;
 	err = get_checkpoint_version(sbi, cp_addr, &cp_block,
 					&cp_page_2, version);
 	if (err)
-<<<<<<< HEAD
 		goto invalid_cp;
-=======
-		goto invalid_cp2;
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	cur_version = *version;
 
 	if (cur_version == pre_version) {
@@ -928,9 +889,8 @@ static struct page *validate_checkpoint(struct f2fs_sb_info *sbi,
 		f2fs_put_page(cp_page_2, 1);
 		return cp_page_1;
 	}
-invalid_cp2:
 	f2fs_put_page(cp_page_2, 1);
-invalid_cp1:
+invalid_cp:
 	f2fs_put_page(cp_page_1, 1);
 	return NULL;
 }
@@ -979,25 +939,15 @@ int f2fs_get_valid_checkpoint(struct f2fs_sb_info *sbi)
 	cp_block = (struct f2fs_checkpoint *)page_address(cur_page);
 	memcpy(sbi->ckpt, cp_block, blk_size);
 
-<<<<<<< HEAD
-=======
-	/* Sanity checking of checkpoint */
-	if (f2fs_sanity_check_ckpt(sbi))
-		goto free_fail_no_cp;
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	if (cur_page == cp1)
 		sbi->cur_cp_pack = 1;
 	else
 		sbi->cur_cp_pack = 2;
 
-<<<<<<< HEAD
 	/* Sanity checking of checkpoint */
 	if (f2fs_sanity_check_ckpt(sbi))
 		goto free_fail_no_cp;
 
-=======
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	if (cp_blks <= 1)
 		goto done;
 
@@ -1602,11 +1552,7 @@ static int do_checkpoint(struct f2fs_sb_info *sbi, struct cp_control *cpc)
 
 	f2fs_bug_on(sbi, get_pages(sbi, F2FS_DIRTY_DENTS));
 
-<<<<<<< HEAD
 	return unlikely(f2fs_cp_error(sbi)) ? -EIO : 0;
-=======
-	return 0;
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 }
 
 /*

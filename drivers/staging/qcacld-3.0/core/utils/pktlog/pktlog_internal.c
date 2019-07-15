@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
  * Copyright (c) 2013-2018 The Linux Foundation. All rights reserved.
-=======
- * Copyright (c) 2013-2019 The Linux Foundation. All rights reserved.
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
  *
  * Permission to use, copy, modify, and/or distribute this software for
  * any purpose with or without fee is hereby granted, provided that the
@@ -923,10 +919,6 @@ A_STATUS process_sw_event(void *pdev, void *data)
 	qdf_mem_copy(sw_event.sw_event,
 				 ((char *)fw_data->data + sizeof(struct ath_pktlog_hdr)),
 				 pl_hdr.size);
-<<<<<<< HEAD
-=======
-	cds_pkt_stats_to_logger_thread(&pl_hdr, NULL, sw_event.sw_event);
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 
 	return A_OK;
 }

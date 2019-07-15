@@ -194,12 +194,6 @@ ifeq ($(KERNEL_BUILD), 0)
 	#Flag to enable offload packets feature
 	CONFIG_WLAN_OFFLOAD_PACKETS := y
 
-<<<<<<< HEAD
-=======
-	#Flag to enable packet capture mode
-	CONFIG_WLAN_FEATURE_PKT_CAPTURE := y
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	#enable TSF get feature
 	CONFIG_WLAN_SYNC_TSF := y
 	#Enable DSRC feature
@@ -298,12 +292,6 @@ ifneq ($(CONFIG_MOBILE_ROUTER), y)
 CONFIG_QCOM_ESE := y
 endif
 
-<<<<<<< HEAD
-=======
-#Enable beacon reporting feature
-CONFIG_WLAN_BEACON_REPORTING := y
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 # Feature flags which are not (currently) configurable via Kconfig
 
 #Whether to build debug version
@@ -1287,10 +1275,7 @@ CDEFINES :=	-DANI_LITTLE_BYTE_ENDIAN \
 		-DANI_OS_TYPE_ANDROID=6 \
 		-DPTT_SOCK_SVC_ENABLE \
 		-Wall\
-<<<<<<< HEAD
 		-Werror\
-=======
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 		-D__linux__ \
 		-DHAL_SELF_STA_PER_BSS=1 \
 		-DFEATURE_WLAN_WAPI \
@@ -1329,13 +1314,6 @@ ifeq ($(CONFIG_WLAN_FEATURE_FILS),y)
 CDEFINES += -DWLAN_FEATURE_FILS_SK
 endif
 
-<<<<<<< HEAD
-=======
-ifeq ($(CONFIG_WLAN_FEATURE_PKT_CAPTURE),y)
-CDEFINES += -DWLAN_FEATURE_PKT_CAPTURE
-endif
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 ifeq ($(CONFIG_CNSS), y)
 ifeq ($(CONFIG_CNSS_SDIO), y)
 CDEFINES += -DCONFIG_PLD_SDIO_CNSS
@@ -1484,13 +1462,6 @@ ifeq ($(CONFIG_WLAN_FEATURE_SAE),y)
 CDEFINES += -DWLAN_FEATURE_SAE
 endif
 
-<<<<<<< HEAD
-=======
-ifeq ($(CONFIG_WLAN_BEACON_REPORTING),y)
-CDEFINES += -DNTH_BEACON_OFFLOAD
-endif
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 ifeq ($(BUILD_DIAG_VERSION),1)
 CDEFINES += -DFEATURE_WLAN_DIAG_SUPPORT
 CDEFINES += -DFEATURE_WLAN_DIAG_SUPPORT_CSR

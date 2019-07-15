@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
  * Copyright (c) 2013-2018 The Linux Foundation. All rights reserved.
-=======
- * Copyright (c) 2013-2019 The Linux Foundation. All rights reserved.
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
  *
  * Permission to use, copy, modify, and/or distribute this software for
  * any purpose with or without fee is hereby granted, provided that the
@@ -606,13 +602,6 @@ QDF_STATUS wma_vdev_start(tp_wma_handle wma, struct wma_vdev_start_req *req,
 
 void wma_vdev_resp_timer(void *data);
 
-<<<<<<< HEAD
-=======
-int wma_set_packet_capture_mode(tp_wma_handle wma_handle,
-				uint8_t vdev_id,
-				uint8_t val);
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 struct wma_target_req *wma_fill_vdev_req(tp_wma_handle wma,
 						uint8_t vdev_id,
 						uint32_t msg_type, uint8_t type,
@@ -726,13 +715,6 @@ void wma_process_update_userpos(tp_wma_handle wma_handle,
 void wma_hidden_ssid_vdev_restart(tp_wma_handle wma_handle,
 				  tHalHiddenSsidVdevRestart *pReq);
 
-<<<<<<< HEAD
-=======
-int
-wma_mgmt_offload_data_event_handler(void *handle, uint8_t *data,
-				    uint32_t data_len);
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 /*
  * wma_power.c functions declarations
  */

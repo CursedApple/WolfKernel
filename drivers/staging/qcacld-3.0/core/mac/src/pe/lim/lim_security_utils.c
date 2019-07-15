@@ -854,11 +854,6 @@ void lim_send_set_bss_key_req(tpAniSirGlobal pMac,
 
 		/* Respond to SME with LIM_MLM_SETKEYS_CNF */
 		mlmSetKeysCnf.resultCode = eSIR_SME_HAL_SEND_MESSAGE_FAIL;
-<<<<<<< HEAD
-=======
-		qdf_mem_zero(pSetBssKeyParams, sizeof(tSetBssKeyParams));
-		qdf_mem_free(pSetBssKeyParams);
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	} else
 		return;         /* Continue after WMA_SET_BSSKEY_RSP... */
 

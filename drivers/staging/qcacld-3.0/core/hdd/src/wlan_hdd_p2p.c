@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD
  * Copyright (c) 2012-2018 The Linux Foundation. All rights reserved.
-=======
- * Copyright (c) 2012-2019 The Linux Foundation. All rights reserved.
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
  *
  * Permission to use, copy, modify, and/or distribute this software for
  * any purpose with or without fee is hereby granted, provided that the
@@ -2963,12 +2959,6 @@ struct wireless_dev *__wlan_hdd_add_virtual_intf(struct wiphy *wiphy,
 		return ERR_PTR(-EINVAL);
 	}
 
-<<<<<<< HEAD
-=======
-	if (wlan_hdd_check_mon_concurrency())
-		return ERR_PTR(-EINVAL);
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	pAdapter = hdd_get_adapter(pHddCtx, QDF_STA_MODE);
 	if ((pAdapter != NULL) &&
 		!(wlan_hdd_validate_session_id(pAdapter->sessionId))) {
@@ -2981,18 +2971,6 @@ struct wireless_dev *__wlan_hdd_add_virtual_intf(struct wiphy *wiphy,
 		}
 	}
 
-<<<<<<< HEAD
-=======
-	ret = wlan_hdd_add_monitor_check(pHddCtx, &pAdapter, type, name,
-					 true, name_assign_type);
-	if (ret)
-		return ERR_PTR(-EINVAL);
-	if (pAdapter) {
-		EXIT();
-		return pAdapter->dev->ieee80211_ptr;
-	}
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	if (session_type == QDF_SAP_MODE) {
 		struct wireless_dev *sap_dev;
 		bool allow_add_sap = wlan_hdd_allow_sap_add(pHddCtx, name,
@@ -3201,13 +3179,6 @@ int __wlan_hdd_del_virtual_intf(struct wiphy *wiphy, struct wireless_dev *wdev)
 	if (pVirtAdapter->device_mode == QDF_SAP_MODE &&
 	    wlan_sap_is_pre_cac_active(pHddCtx->hHal)) {
 		hdd_clean_up_pre_cac_interface(pHddCtx);
-<<<<<<< HEAD
-=======
-	} else if (wlan_hdd_is_session_type_monitor(
-				pVirtAdapter->device_mode)) {
-		wlan_hdd_del_monitor(pHddCtx, pVirtAdapter, TRUE);
-		hdd_reset_mon_mode_cb();
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	} else {
 		wlan_hdd_release_intf_addr(pHddCtx,
 					 pVirtAdapter->macAddressCurrent.bytes);

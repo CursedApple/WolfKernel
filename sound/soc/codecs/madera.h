@@ -227,7 +227,6 @@ extern unsigned int madera_mixer_values[MADERA_NUM_MIXER_INPUTS];
 			     MADERA_MIXER_VOL_SHIFT, 0x20, 0x50, 0,	\
 			     madera_mixer_tlv)
 
-<<<<<<< HEAD
 #define MADERA_ENUM_DECL(name, xreg, xshift, xmask, xtexts, xvalues)	\
 	struct madera_enum name = { .mixer_enum.reg = xreg,	\
 	.mixer_enum.shift_l = xshift, .mixer_enum.shift_r = xshift,	\
@@ -246,15 +245,6 @@ extern unsigned int madera_mixer_values[MADERA_NUM_MIXER_INPUTS];
 		.get = madera_mux_get,					\
 		.put = madera_mux_put,			\
 		.private_value = (unsigned long)&xname##_enum }
-=======
-#define MADERA_MUX_ENUM_DECL(name, reg) \
-	SOC_VALUE_ENUM_SINGLE_AUTODISABLE_DECL( \
-		name, reg, 0, 0xff, madera_mixer_texts, madera_mixer_values)
-
-#define MADERA_MUX_CTL_DECL(name) \
-	const struct snd_kcontrol_new name##_mux =	\
-		SOC_DAPM_ENUM("Route", name##_enum)
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 
 #define MADERA_MUX_ENUMS(name, base_reg) \
 	static MADERA_MUX_ENUM_DECL(name##_enum, base_reg);	\
@@ -274,17 +264,12 @@ extern unsigned int madera_mixer_values[MADERA_NUM_MIXER_INPUTS];
 	MADERA_MUX_ENUMS(name##_aux5, base_reg + 32);	\
 	MADERA_MUX_ENUMS(name##_aux6, base_reg + 40)
 
-<<<<<<< HEAD
 #define MADERA_MUX(wname, wctrl)					\
 {	.id = snd_soc_dapm_mux, .name = wname, .reg = SND_SOC_NOPM,	\
 	.shift = 0, .kcontrol_news = wctrl,				\
 	.num_kcontrols = 1, .event = madera_mux_ev,			\
 	.event_flags = SND_SOC_DAPM_POST_PMU | SND_SOC_DAPM_PRE_PMD |	\
 			SND_SOC_DAPM_PRE_REG | SND_SOC_DAPM_POST_REG }
-=======
-#define MADERA_MUX(name, ctrl) \
-	SND_SOC_DAPM_MUX(name, SND_SOC_NOPM, 0, 0, ctrl)
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 
 #define MADERA_MUX_WIDGETS(name, name_str) \
 	MADERA_MUX(name_str " Input 1", &name##_mux)
@@ -476,7 +461,6 @@ extern int madera_anc_ev(struct snd_soc_dapm_widget *w,
 			  struct snd_kcontrol *kcontrol,
 			  int event);
 
-<<<<<<< HEAD
 extern int madera_mux_get(struct snd_kcontrol *kcontrol,
 			  struct snd_ctl_elem_value *ucontrol);
 extern int madera_mux_put(struct snd_kcontrol *kcontrol,
@@ -484,8 +468,6 @@ extern int madera_mux_put(struct snd_kcontrol *kcontrol,
 extern int madera_mux_ev(struct snd_soc_dapm_widget *w,
 			 struct snd_kcontrol *kcontrol, int event);
 
-=======
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 extern int madera_out1_demux_put(struct snd_kcontrol *kcontrol,
 				 struct snd_ctl_elem_value *ucontrol);
 

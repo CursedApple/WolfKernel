@@ -243,7 +243,6 @@ restart_timer:
 	}
 }
 
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_session.c
 #ifdef WLAN_FEATURE_11W
 /**
  * pe_init_pmf_comeback_timer: init PMF comeback timer
@@ -274,8 +273,6 @@ pe_init_pmf_comeback_timer(tpAniSirGlobal mac_ctx,
 }
 #endif
 
-=======
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_session.c
 #ifdef WLAN_FEATURE_FILS_SK
 /**
  * pe_delete_fils_info: API to delete fils session info
@@ -549,10 +546,7 @@ pe_create_session(tpAniSirGlobal pMac, uint8_t *bssid, uint8_t *sessionId,
 			pe_err("cannot create ap_ecsa_timer");
 	}
 	pe_init_fils_info(session_ptr);
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_session.c
 	pe_init_pmf_comeback_timer(pMac, session_ptr, *sessionId);
-=======
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_session.c
 	session_ptr->deauthmsgcnt = 0;
 	session_ptr->disassocmsgcnt = 0;
 	session_ptr->ht_client_cnt = 0;
@@ -847,7 +841,6 @@ void pe_delete_session(tpAniSirGlobal mac_ctx, tpPESession session)
 		session->addIeParams.probeRespBCNData_buff = NULL;
 		session->addIeParams.probeRespBCNDataLen = 0;
 	}
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_session.c
 #ifdef WLAN_FEATURE_11W
 	if (QDF_TIMER_STATE_RUNNING ==
 	    qdf_mc_timer_get_current_state(&session->pmfComebackTimer))
@@ -856,21 +849,6 @@ void pe_delete_session(tpAniSirGlobal mac_ctx, tpPESession session)
 #endif
 	pe_delete_fils_info(session);
 	session->valid = false;
-
-	qdf_mem_zero(session->WEPKeyMaterial,
-		     sizeof(session->WEPKeyMaterial));
-
-	if (session->access_policy_vendor_ie)
-		qdf_mem_free(session->access_policy_vendor_ie);
-
-	session->access_policy_vendor_ie = NULL;
-	session->deauthmsgcnt = 0;
-	session->disassocmsgcnt = 0;
-=======
-
-	pe_delete_fils_info(session);
-	session->valid = false;
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_session.c
 
 	qdf_mem_zero(session->WEPKeyMaterial,
 		     sizeof(session->WEPKeyMaterial));

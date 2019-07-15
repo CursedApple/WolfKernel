@@ -1284,11 +1284,6 @@ static int get_args(uint32_t kernel, struct smq_invoke_ctx *ctx)
 
 	/* allocate new buffer */
 	if (copylen) {
-<<<<<<< HEAD
-=======
-		DEFINE_DMA_ATTRS(ctx_attrs);
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 		err = fastrpc_buf_alloc(ctx->fl, copylen, ctx_attrs,
 					0, 0, &ctx->buf);
 		if (err)
@@ -1325,13 +1320,8 @@ static int get_args(uint32_t kernel, struct smq_invoke_ctx *ctx)
 		uint64_t buf = ptr_to_uint64(lpra[i].buf.pv);
 		size_t len = lpra[i].buf.len;
 
-<<<<<<< HEAD
 		rpra[i].buf.pv = lrpra[i].buf.pv = 0;
 		rpra[i].buf.len = lrpra[i].buf.len = len;
-=======
-		rpra[i].buf.pv = 0;
-		rpra[i].buf.len = len;
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 		if (!len)
 			continue;
 		if (map) {

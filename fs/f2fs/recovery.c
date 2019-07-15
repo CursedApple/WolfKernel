@@ -308,11 +308,7 @@ static int find_fsync_dnodes(struct f2fs_sb_info *sbi, struct list_head *head,
 	while (1) {
 		struct fsync_inode_entry *entry;
 
-<<<<<<< HEAD
 		if (!f2fs_is_valid_blkaddr(sbi, blkaddr, META_POR))
-=======
-		if (!f2fs_is_valid_meta_blkaddr(sbi, blkaddr, META_POR))
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 			return 0;
 
 		page = f2fs_get_tmp_page(sbi, blkaddr);
@@ -601,11 +597,7 @@ retry_dn:
 		}
 
 		/* dest is valid block, try to recover from src to dest */
-<<<<<<< HEAD
 		if (f2fs_is_valid_blkaddr(sbi, dest, META_POR)) {
-=======
-		if (f2fs_is_valid_meta_blkaddr(sbi, dest, META_POR)) {
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 
 			if (src == NULL_ADDR) {
 				err = f2fs_reserve_new_block(&dn);
@@ -665,11 +657,7 @@ static int recover_data(struct f2fs_sb_info *sbi, struct list_head *inode_list,
 	while (1) {
 		struct fsync_inode_entry *entry;
 
-<<<<<<< HEAD
 		if (!f2fs_is_valid_blkaddr(sbi, blkaddr, META_POR))
-=======
-		if (!f2fs_is_valid_meta_blkaddr(sbi, blkaddr, META_POR))
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 			break;
 
 		f2fs_ra_meta_pages_cond(sbi, blkaddr);
@@ -798,17 +786,11 @@ skip:
 	} else {
 		clear_sbi_flag(sbi, SBI_POR_DOING);
 	}
-<<<<<<< HEAD
-=======
-
-	clear_sbi_flag(sbi, SBI_POR_DOING);
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	mutex_unlock(&sbi->cp_mutex);
 
 	/* let's drop all the directory inodes for clean checkpoint */
 	destroy_fsync_dnodes(&dir_list, err);
 
-<<<<<<< HEAD
 	if (need_writecp) {
 		set_sbi_flag(sbi, SBI_IS_RECOVERED);
 
@@ -818,13 +800,6 @@ skip:
 			};
 			err = f2fs_write_checkpoint(sbi, &cpc);
 		}
-=======
-	if (!err && need_writecp) {
-		struct cp_control cpc = {
-			.reason = CP_RECOVERY,
-		};
-		err = f2fs_write_checkpoint(sbi, &cpc);
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	}
 
 	kmem_cache_destroy(fsync_entry_slab);

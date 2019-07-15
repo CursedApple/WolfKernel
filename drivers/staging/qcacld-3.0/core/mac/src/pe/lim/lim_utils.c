@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_utils.c
  * Copyright (c) 2011-2018 The Linux Foundation. All rights reserved.
-=======
- * Copyright (c) 2011-2019 The Linux Foundation. All rights reserved.
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_utils.c
  *
  * Permission to use, copy, modify, and/or distribute this software for
  * any purpose with or without fee is hereby granted, provided that the
@@ -7339,12 +7335,8 @@ lim_assoc_rej_rem_entry_with_lowest_delta(qdf_list_t *list)
 }
 
 void lim_assoc_rej_add_to_rssi_based_reject_list(tpAniSirGlobal mac_ctx,
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_utils.c
 	tDot11fTLVrssi_assoc_rej  *rssi_assoc_rej,
 	tSirMacAddr bssid, int8_t rssi)
-=======
-	struct sir_rssi_disallow_lst *ap_info)
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_utils.c
 {
 	struct sir_rssi_disallow_lst *entry;
 	QDF_STATUS status = QDF_STATUS_SUCCESS;
@@ -7355,7 +7347,6 @@ void lim_assoc_rej_add_to_rssi_based_reject_list(tpAniSirGlobal mac_ctx,
 		return;
 	}
 
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_utils.c
 	pe_debug("%pM: assoc resp rssi %d, delta rssi %d retry delay %d sec and list size %d",
 		bssid, rssi, rssi_assoc_rej->delta_rssi,
 		rssi_assoc_rej->retry_delay,
@@ -7366,15 +7357,6 @@ void lim_assoc_rej_add_to_rssi_based_reject_list(tpAniSirGlobal mac_ctx,
 	entry->retry_delay = rssi_assoc_rej->retry_delay *
 		QDF_MC_TIMER_TO_MS_UNIT;
 	entry->expected_rssi = rssi + rssi_assoc_rej->delta_rssi;
-=======
-	pe_debug("%pM: assoc resp, expected rssi %d retry delay %d sec and list size %d",
-		ap_info->bssid.bytes, ap_info->expected_rssi,
-		ap_info->retry_delay,
-		qdf_list_size(&mac_ctx->roam.rssi_disallow_bssid));
-
-	*entry = *ap_info;
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/mac/src/pe/lim/lim_utils.c
 	entry->time_during_rejection =
 		qdf_do_div(qdf_get_monotonic_boottime(),
 		QDF_MC_TIMER_TO_MS_UNIT);

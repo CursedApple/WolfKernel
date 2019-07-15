@@ -1,9 +1,5 @@
 /*
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/sap/src/sap_api_link_cntl.c
  * Copyright (c) 2012-2018 The Linux Foundation. All rights reserved.
-=======
- * Copyright (c) 2012-2019 The Linux Foundation. All rights reserved.
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/sap/src/sap_api_link_cntl.c
  *
  * Permission to use, copy, modify, and/or distribute this software for
  * any purpose with or without fee is hereby granted, provided that the
@@ -318,18 +314,12 @@ wlansap_pre_start_bss_acs_scan_callback(tHalHandle hal_handle, void *pcontext,
 			scan_status);
 		sap_ctx->channel =
 			sap_select_default_oper_chan(sap_ctx->acs_cfg);
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/sap/src/sap_api_link_cntl.c
 		sap_ctx->sap_state = eSAP_ACS_CHANNEL_SELECTED;
 		sap_ctx->sap_status = eSAP_STATUS_SUCCESS;
 		goto close_session;
 	}
 	QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_INFO_HIGH,
 		FL("CSR scan_status = eCSR_SCAN_SUCCESS (%d)"), scan_status);
-=======
-		sap_ctx->acs_cfg->pri_ch = sap_ctx->channel;
-		goto end;
-	}
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/sap/src/sap_api_link_cntl.c
 	/*
 	* Now do
 	* 1. Get scan results
@@ -368,7 +358,6 @@ wlansap_pre_start_bss_acs_scan_callback(tHalHandle hal_handle, void *pcontext,
 	}
 
 	if (oper_channel == SAP_CHANNEL_NOT_SELECTED) {
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/sap/src/sap_api_link_cntl.c
 #ifdef SOFTAP_CHANNEL_RANGE
 		QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_INFO,
 			  FL("No suitable channel selected"));
@@ -382,28 +371,18 @@ wlansap_pre_start_bss_acs_scan_callback(tHalHandle hal_handle, void *pcontext,
 			sap_select_default_oper_chan(sap_ctx->acs_cfg);
 	} else {
 #endif
-=======
-		QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_INFO,
-			  FL("No suitable channel, so select default channel"));
-		sap_ctx->channel =
-			sap_select_default_oper_chan(sap_ctx->acs_cfg);
-		sap_ctx->acs_cfg->pri_ch = sap_ctx->channel;
-	} else {
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/sap/src/sap_api_link_cntl.c
 		/* Valid Channel Found from scan results. */
 		sap_ctx->acs_cfg->pri_ch = oper_channel;
 		sap_ctx->channel = oper_channel;
 	}
+	sap_config_acs_result(hal_handle, sap_ctx,
+			sap_ctx->acs_cfg->ht_sec_ch);
 
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/sap/src/sap_api_link_cntl.c
 	QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_INFO_HIGH,
 		  FL("Channel selected = %d"), sap_ctx->channel);
 	sap_ctx->sap_state = eSAP_ACS_CHANNEL_SELECTED;
 	sap_ctx->sap_status = eSAP_STATUS_SUCCESS;
 close_session:
-=======
-end:
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/sap/src/sap_api_link_cntl.c
 #ifdef SOFTAP_CHANNEL_RANGE
 	if (sap_ctx->channelList != NULL) {
 		/*
@@ -416,17 +395,6 @@ end:
 		sap_ctx->num_of_channel = 0;
 	}
 #endif
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/sap/src/sap_api_link_cntl.c
-=======
-	QDF_TRACE(QDF_MODULE_ID_SAP, QDF_TRACE_LEVEL_INFO_HIGH,
-		  FL("Channel selected = %d"), sap_ctx->channel);
-	sap_ctx->sap_state = eSAP_ACS_CHANNEL_SELECTED;
-	sap_ctx->sap_status = eSAP_STATUS_SUCCESS;
-
-	sap_config_acs_result(hal_handle, sap_ctx,
-			sap_ctx->acs_cfg->ht_sec_ch);
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/sap/src/sap_api_link_cntl.c
 	sap_hdd_signal_event_handler(sap_ctx);
 	return status;
 }
@@ -896,13 +864,8 @@ wlansap_roam_callback(void *ctx, tCsrRoamInfo *csr_roam_info, uint32_t roamId,
 	tpAniSirGlobal mac_ctx = NULL;
 	uint8_t intf;
 	bool sta_sap_scc_on_dfs_chan;
-<<<<<<< HEAD:drivers/staging/qcacld-3.0/core/sap/src/sap_api_link_cntl.c
 
 
-=======
-
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f:drivers/staging/qcacld-3.0/core/sap/src/sap_api_link_cntl.c
 	if (QDF_IS_STATUS_ERROR(wlansap_context_get((ptSapContext)ctx)))
 		return QDF_STATUS_E_FAILURE;
 

@@ -1427,12 +1427,6 @@ static int validate_tmpl(int nr, struct xfrm_user_tmpl *ut, u16 family)
 		if (ut[i].mode >= XFRM_MODE_MAX)
 			return -EINVAL;
 
-<<<<<<< HEAD
-=======
-		if (ut[i].mode >= XFRM_MODE_MAX)
-			return -EINVAL;
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 		prev_family = ut[i].family;
 
 		switch (ut[i].family) {

@@ -96,13 +96,9 @@ static void msm_actuator_parse_i2c_params(struct msm_actuator_ctrl_t *a_ctrl,
 	struct msm_camera_i2c_reg_array *i2c_tbl = NULL;
 	CDBG("Enter\n");
 
-<<<<<<< HEAD
 	if ((!a_ctrl) ||
 		(!a_ctrl->reg_tbl) ||
 		(!a_ctrl->i2c_reg_tbl)) {
-=======
-	if (!a_ctrl || !a_ctrl->i2c_reg_tbl) {
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 		pr_err("failed. NULL actuator pointers");
 		return;
 	}

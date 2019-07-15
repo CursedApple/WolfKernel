@@ -2162,15 +2162,6 @@ static int mdss_mdp_cmd_wait4pingpong(struct mdss_mdp_ctl *ctl, void *arg)
 			mdss_fb_report_panel_dead(ctl->mfd);
 		} else if (ctx->pp_timeout_report_cnt == 0) {
 			MDSS_XLOG(0xbad);
-<<<<<<< HEAD
-=======
-			MDSS_XLOG_TOUT_HANDLER_MMI("mdp",
-				"dsi0_ctrl", "dsi0_phy",
-				"dsi1_ctrl", "dsi1_phy");
-			mdss_dropbox_report_event_ratelimit(
-				MDSS_DROPBOX_MSG_PP_TO, 1,
-				&mdss_dropbox_global_rl);
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 		} else if (ctx->pp_timeout_report_cnt == MAX_RECOVERY_TRIALS) {
 			MDSS_XLOG(0xbad2);
 			MDSS_XLOG_TOUT_HANDLER("mdp", "dsi0_ctrl", "dsi0_phy",

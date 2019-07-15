@@ -309,11 +309,7 @@ int tty_diag_channel_write(struct usb_diag_ch *diag_ch,
 	d_req->actual = d_req->length;
 	spin_unlock_irqrestore(&diag_tty_lock, flags);
 
-<<<<<<< HEAD
 	diag_ch->notify(diag_ch->priv, USB_DIAG_WRITE_DONE_SYNC, d_req);
-=======
-	diag_ch->notify(diag_ch->priv, USB_DIAG_WRITE_DONE, d_req);
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 
 	return 0;
 }

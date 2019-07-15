@@ -1377,18 +1377,11 @@ static void hdd_cleanup_on_fw_down(void)
 	ENTER();
 
 	hdd_ctx = cds_get_context(QDF_MODULE_ID_HDD);
-<<<<<<< HEAD
 	qdf_complete_wait_events();
-=======
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	cds_set_target_ready(false);
 	if (hdd_ctx != NULL)
 		hdd_cleanup_scan_queue(hdd_ctx, NULL);
 	wlan_hdd_purge_notifier();
-<<<<<<< HEAD
-=======
-	qdf_complete_wait_events();
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 
 	EXIT();
 }
@@ -1454,10 +1447,6 @@ static void wlan_hdd_pld_uevent(struct device *dev,
 		cds_set_target_ready(false);
 		hdd_pld_ipa_uc_shutdown_pipes();
 		wlan_hdd_purge_notifier();
-<<<<<<< HEAD
-=======
-		qdf_complete_wait_events();
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 		break;
 	case PLD_FW_DOWN:
 		hdd_cleanup_on_fw_down();

@@ -80,11 +80,6 @@ module_param(qmi_timeout, ulong, 0600);
 #define WLAN_DETUNE_REG_VOLT_MIN	2704000
 #define WLAN_DETUNE_REG_CURRENT		500
 
-#define WLAN_DETUNE_REG_NAME		"wlan-detune-reg"
-#define WLAN_DETUNE_REG_VOLT_MAX	2704000
-#define WLAN_DETUNE_REG_VOLT_MIN	2704000
-#define WLAN_DETUNE_REG_CURRENT		500
-
 #define icnss_ipc_log_string(_x...) do {				\
 	if (icnss_ipc_log_context)					\
 		ipc_log_string(icnss_ipc_log_context, _x);		\
@@ -309,10 +304,6 @@ enum icnss_driver_state {
 	ICNSS_FW_DOWN,
 	ICNSS_DRIVER_UNLOADING,
 	ICNSS_REJUVENATE,
-<<<<<<< HEAD
-=======
-	ICNSS_BLOCK_SHUTDOWN,
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 };
 
 struct ce_irq_list {
@@ -505,10 +496,6 @@ static struct icnss_priv {
 	u8 requesting_sub_system;
 	u16 line_number;
 	char function_name[QMI_WLFW_FUNCTION_NAME_LEN_V01 + 1];
-<<<<<<< HEAD
-=======
-	struct completion unblock_shutdown;
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	struct regulator *wlan_reg_detune;
 } *penv;
 
@@ -1549,7 +1536,7 @@ out:
 	return ret;
 }
 
-static int wlfw_wlan_mode_send_sync_msg(u32 mode)
+static int wlfw_wlan_mode_send_sync_msg(enum wlfw_driver_mode_enum_v01 mode)
 {
 	int ret;
 	struct wlfw_wlan_mode_req_msg_v01 req;
@@ -2661,16 +2648,6 @@ static int icnss_modem_notifier_nb(struct notifier_block *nb,
 	if (code != SUBSYS_BEFORE_SHUTDOWN)
 		return NOTIFY_OK;
 
-<<<<<<< HEAD
-=======
-	if (code == SUBSYS_BEFORE_SHUTDOWN && !notif->crashed &&
-	    test_bit(ICNSS_BLOCK_SHUTDOWN, &priv->state)) {
-		if (!wait_for_completion_timeout(&priv->unblock_shutdown,
-						 PROBE_TIMEOUT))
-			icnss_pr_err("wlan driver probe timeout\n");
-	}
-
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
 	if (code == SUBSYS_BEFORE_SHUTDOWN && !notif->crashed) {
 		ret = wlfw_send_modem_shutdown_msg();
 		if (ret)

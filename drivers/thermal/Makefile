@@ -57,11 +57,8 @@ obj-$(CONFIG_LIMITS_MONITOR)	+= lmh_interface.o
 obj-$(CONFIG_LIMITS_LITE_HW)	+= lmh_lite.o
 obj-$(CONFIG_QCOM_THERMAL_LIMITS_DCVS)	+= msm_lmh_dcvs.o
 obj-$(CONFIG_MMI_SYS_TEMP)      += mmi_sys_temp.o
-<<<<<<< HEAD
 
 #TODO: remove me b/62058353
 subdir-ccflags-y += \
 	-Wno-parentheses-equality \
 	-Wno-enum-conversion
-=======
->>>>>>> 70dcb774e6f5da9d087afe5c11ef9b5f881e076f
