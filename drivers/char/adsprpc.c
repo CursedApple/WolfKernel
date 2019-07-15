@@ -1236,25 +1236,19 @@ static int get_args(uint32_t kernel, struct smq_invoke_ctx *ctx)
 		ipage += 1;
 	}
 	metalen = copylen = (size_t)&ipage[0];
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 	/* calculate len requreed for copying */
-=======
-=======
->>>>>>> parent of 2645200ed452... fix compile error
 
 	/* allocate new local rpra buffer */
 	lrpralen = (size_t)&list[0];
 	if (lrpralen) {
 		err = fastrpc_buf_alloc(ctx->fl, lrpralen, ctx_attrs,
 				0, 0, &ctx->lbuf);
-<<<<<<< HEAD
-=======
+
 	lrpralen = (u64)(uintptr_t)&list[0];
 	if (lrpralen) {
 		err = fastrpc_buf_alloc(ctx->fl, lrpralen,
 			ctx_attrs, 0, 0, &ctx->lbuf);
->>>>>>> parent of 2645200ed452... fix compile error
 		if (err)
 			goto bail;
 	}
@@ -1265,10 +1259,7 @@ static int get_args(uint32_t kernel, struct smq_invoke_ctx *ctx)
 	ctx->lrpra = lrpra;
 
 	/* calculate len required for copying */
-<<<<<<< HEAD
->>>>>>> parent of 344758527a8a... Merge tag 'LA.UM.6.2.r1-12700-sdm660.0' of https://source.codeaurora.org/quic/la/kernel/msm-4.4 into dexk5.1
-=======
->>>>>>> parent of 2645200ed452... fix compile error
+
 	for (oix = 0; oix < inbufs + outbufs; ++oix) {
 		int i = ctx->overps[oix]->raix;
 		uintptr_t mstart, mend;
