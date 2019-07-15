@@ -1,9 +1,12 @@
 <<<<<<< HEAD
 /* Copyright (c) 2012-2019, The Linux Foundation. All rights reserved.
+<<<<<<< HEAD
 /* Copyright (c) 2012-2017, 2019, The Linux Foundation. All rights reserved.
 =======
 /* Copyright (c) 2012-2018, The Linux Foundation. All rights reserved.
 >>>>>>> parent of 712f6537d40c... Merge tag 'LA.UM.7.2.r1-07200-sdm660.0' of https://source.codeaurora.org/quic/la/kernel/msm-4.4 into dexk5.1
+=======
+>>>>>>> parent of 344758527a8a... Merge tag 'LA.UM.6.2.r1-12700-sdm660.0' of https://source.codeaurora.org/quic/la/kernel/msm-4.4 into dexk5.1
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
