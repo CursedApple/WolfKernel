@@ -59,7 +59,7 @@ static DEFINE_SPINLOCK(suspend_lock);
 #define TAG "msm_adreno_tz: "
 
 #if 1
-static unsigned int adrenoboost = 0;
+static unsigned int adrenoboost = 1;
 #endif
 
 static u64 suspend_time;
@@ -379,8 +379,24 @@ static int tz_init(struct devfreq_msm_adreno_tz_data *priv,
 extern int adreno_idler(struct devfreq_dev_status stats, struct devfreq *devfreq,
 		 unsigned long *freq);
 #endif
+<<<<<<< HEAD
 static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 								u32 *flag)
+=======
+extern  int devfreq_get_freq_level(struct devfreq *devfreq,
+	unsigned long freq)
+{
+	int lev;
+
+	for (lev = 0; lev < devfreq->profile->max_state; lev++)
+	if (freq == devfreq->profile->freq_table[lev])
+		return lev;
+
+	return -EINVAL;
+}
+
+static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq)
+>>>>>>> parent of 161185f10c0d... Merge tag 'v4.4.185' of https://source.codeaurora.org/quic/la/kernel/msm-4.4 into dexk5.1
 {
 	int result = 0;
 	struct devfreq_msm_adreno_tz_data *priv = devfreq->data;
@@ -397,20 +413,19 @@ static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 	}
 
 	/* Prevent overflow */
-	if (stats.busy_time >= (1 << 24) || stats.total_time >= (1 << 24)) {
-		stats.busy_time >>= 7;
-		stats.total_time >>= 7;
-	}
+  if (stats.busy_time >= (1 << 24) || stats.total_time >= (1 << 24)) {
+	            stats.busy_time >>= 7;
+	            stats.total_time >>= 7;
+}
 
 	*freq = stats.current_frequency;
 
 #ifdef CONFIG_ADRENO_IDLER
-	if (adreno_idler(stats, devfreq, freq)) {
-		/* adreno_idler has asked to bail out now */
-		return 0;
-	}
+	      if (adreno_idler(stats, devfreq, freq)) {
+		            /* adreno_idler has asked to bail out now */
+		           return 0;
+      	}
 #endif
-
 	priv->bin.total_time += stats.total_time;
 #if 1
 	// scale busy time up based on adrenoboost parameter, only if MIN_BUSY exceeded...
