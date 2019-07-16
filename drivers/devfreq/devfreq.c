@@ -96,16 +96,18 @@ static void devfreq_set_freq_limits(struct devfreq *devfreq)
  * @devfreq:	the devfreq instance
  * @freq:	the target frequency
  */
-/*int devfreq_get_freq_level(struct devfreq *devfreq, unsigned long freq)
+int devfreq_get_freq_level(struct devfreq *devfreq, unsigned long freq)
 {
 	int lev;
+
 	for (lev = 0; lev < devfreq->profile->max_state; lev++)
 		if (freq == devfreq->profile->freq_table[lev])
 			return lev;
+
 	return -EINVAL;
 }
 EXPORT_SYMBOL(devfreq_get_freq_level);
-/*
+
 /**
  * devfreq_update_status() - Update statistics of devfreq behavior
  * @devfreq:	the devfreq instance
@@ -193,15 +195,10 @@ int update_devfreq(struct devfreq *devfreq)
 	if (!devfreq->governor)
 		return -EINVAL;
 
-		if (devfreq->max_boost) {
-			/* Use the max freq for max boosts */
-			freq = ULONG_MAX;
-		} else {
-			/* Reevaluate the proper frequency */
-			err = devfreq->governor->get_target_freq(devfreq, &freq, &flags);
-			if (err)
-				return err;
-		}
+	/* Reevaluate the proper frequency */
+	err = devfreq->governor->get_target_freq(devfreq, &freq, &flags);
+	if (err)
+		return err;
 
 	/*
 	 * Adjust the frequency with user freq and QoS.
@@ -937,10 +934,6 @@ static ssize_t min_freq_store(struct device *dev, struct device_attribute *attr,
 	unsigned long value;
 	int ret;
 	unsigned long max;
-
-	/* Minfreq is managed by devfreq_boost */
-	if (df->is_boost_device)
-		return count;
 
 	ret = sscanf(buf, "%lu", &value);
 	if (ret != 1)
