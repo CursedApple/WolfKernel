@@ -1242,6 +1242,12 @@ static int get_args(uint32_t kernel, struct smq_invoke_ctx *ctx)
 	if (lrpralen) {
 		err = fastrpc_buf_alloc(ctx->fl, lrpralen, ctx_attrs,
 				0, 0, &ctx->lbuf);
+
+	lrpralen = (u64)(uintptr_t)&list[0];
+	if (lrpralen) {
+		err = fastrpc_buf_alloc(ctx->fl, lrpralen,
+			ctx_attrs, 0, 0, &ctx->lbuf);
+
 		if (err)
 			goto bail;
 	}
