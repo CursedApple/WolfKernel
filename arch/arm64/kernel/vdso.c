@@ -139,15 +139,12 @@ static int __init vdso_init(void)
 	pfn = sym_to_pfn(vdso_start);
 
 	for (i = 0; i < vdso_pages; i++)
-<<<<<<< HEAD
 
 		vdso_pagelist[i + 1] = pfn_to_page(pfn + i);
 
 		vdso_pagelist[i + 1] = virt_to_page(vdso_start + i * PAGE_SIZE);
 
-=======
 		vdso_pagelist[i + 1] = pfn_to_page(pfn + i);
->>>>>>> 271b54383bbae084bb064c3e68b542116534a4fe
 
 	/* Populate the special mapping structures */
 	vdso_spec[0] = (struct vm_special_mapping) {
