@@ -100,15 +100,15 @@ if [[ "$@" =~ "clean" ]]; then
 fi
 
 curl -s -X POST https://api.telegram.org/bot$BOT_API_KEY/sendMessage -d text="#Awoo 
-Build Scheduled for $KERNELNAME Kernel " -d chat_id=$CHAT_ID
+Build Scheduled $KERNELNAME Kernel " -d chat_id=$CHAT_ID
 ${MAKE} $DEFCONFIG;
 START=$(date +"%s");
 echo -e "Using ${JOBS} threads to compile"
 ${MAKE} -j${JOBS} \
   	 	 	  ARCH=arm64 \
-                          CC=${HOME}/clang/bin/clang \
-                          CROSS_COMPILE="${CROSS_COMPILE}" \
-                          CLANG_TRIPLE="${CROSS_COMPILE}" ;
+
+                          CROSS_COMPILE="${CROSS_COMPILE}";
+                          
 exitCode="$?";
 END=$(date +"%s")
 DIFF=$(($END - $START))
