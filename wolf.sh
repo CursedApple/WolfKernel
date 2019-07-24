@@ -51,11 +51,11 @@ export DEFCONFIG="wolf_defconfig";
 export ZIP_DIR="${HOME}/${KERNELDIR}/files";
 export IMAGE="${OUTDIR}/arch/${ARCH}/boot/Image.gz-dtb";
 export CROSS_COMPILE_ARM32=${HOME}/toolchain32/bin/arm-linux-androideabi-
-export CC=$HOME/clang/bin/clang
-export CLANG_VERSION=$($CC --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')
-export CLANG_TRIPLE=aarch64-linux-gnu-
-export CLANG_LD_PATH=$HOME/clang/lib
-export LLVM_DIS=$HOME/clang/bin/llvm-dis
+
+
+
+
+
 
 export MAKE_TYPE="Treble"
 
