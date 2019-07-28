@@ -1,5 +1,5 @@
 #include <linux/module.h>
-#include <linux/kernel.h>
+#include <linux/kernel.h>    
 #include <linux/init.h>
 #include <linux/input.h>
 #include <linux/delay.h>
@@ -16,14 +16,14 @@ MODULE_LICENSE("GPL");
 
 //sweep2sleep
 #define S2S_PWRKEY_DUR         60
-#define S2S_Y_MAX             	2280
+#define S2S_Y_MAX             	2560
 #define S2S_Y_LIMIT            S2S_Y_MAX-100
 #define SWEEP_RIGHT		0x01
 #define SWEEP_LEFT		0x02
 #define VIB_STRENGTH		20
 
 // 1=sweep right, 2=sweep left, 3=both
-static int s2s_switch = 0;
+static int s2s_switch = 2;
 static int s2s_y_limit = S2S_Y_LIMIT;
 static int touch_x = 0, touch_y = 0, firstx = 0;
 static bool touch_x_called = false, touch_y_called = false;
@@ -33,8 +33,13 @@ static struct input_dev * sweep2sleep_pwrdev;
 static DEFINE_MUTEX(pwrkeyworklock);
 static struct workqueue_struct *s2s_input_wq;
 static struct work_struct s2s_input_work;
-extern void set_vibrate(int value);
+extern void set_vibrate(int value); 
 static int vib_strength = VIB_STRENGTH;
+
+void s2s_setdev(struct input_dev * input_device) {
+	sweep2sleep_pwrdev = input_device;
+	return;
+}
 
 /* PowerKey work func */
 static void sweep2sleep_presspwr(struct work_struct * sweep2sleep_presspwr_work) {
@@ -183,7 +188,7 @@ static void s2s_input_event(struct input_handle *handle, unsigned int type,
 }
 
 static int input_dev_filter(struct input_dev *dev) {
-	if (strstr(dev->name, "synaptics,s3320")) {
+	if (strstr(dev->name, "hbtp_input")) {
 		return 0;
 	} else {
 		return 1;
@@ -251,10 +256,10 @@ static ssize_t sweep2sleep_dump(struct device *dev,
 		return ret;
 
 	if (input < 0 || input > 3)
-		input = 0;
+		input = 0;				
 
-	s2s_switch = input;
-
+	s2s_switch = input;			
+	
 	return count;
 }
 
@@ -278,10 +283,10 @@ static ssize_t vib_strength_dump(struct device *dev,
 		return ret;
 
 	if (input < 0 || input > 90)
-		input = 20;
+		input = 20;				
 
-	vib_strength = input;
-
+	vib_strength = input;			
+	
 	return count;
 }
 
@@ -293,23 +298,6 @@ static struct kobject *sweep2sleep_kobj;
 static int __init sweep2sleep_init(void)
 {
 	int rc = 0;
-
-	sweep2sleep_pwrdev = input_allocate_device();
-	if (!sweep2sleep_pwrdev) {
-		pr_err("Failed to allocate sweep2sleep_pwrdev\n");
-		goto err_alloc_dev;
-	}
-
-	input_set_capability(sweep2sleep_pwrdev, EV_KEY, KEY_POWER);
-
-	sweep2sleep_pwrdev->name = "s2s_pwrkey";
-	sweep2sleep_pwrdev->phys = "s2s_pwrkey/input0";
-
-	rc = input_register_device(sweep2sleep_pwrdev);
-	if (rc) {
-		pr_err("%s: input_register_device err=%d\n", __func__, rc);
-		goto err_input_dev;
-	}
 
 	s2s_input_wq = create_workqueue("s2s_iwq");
 	if (!s2s_input_wq) {
@@ -334,12 +322,6 @@ static int __init sweep2sleep_init(void)
 	rc = sysfs_create_file(sweep2sleep_kobj, &dev_attr_vib_strength.attr);
 	if (rc)
 		pr_err("%s: sysfs_create_file failed for vib_strength\n", __func__);
-
-err_input_dev:
-	input_free_device(sweep2sleep_pwrdev);
-
-err_alloc_dev:
-	pr_info("%s done\n", __func__);
 
 	return 0;
 }

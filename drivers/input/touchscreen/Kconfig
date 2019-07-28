@@ -52,6 +52,12 @@ config TOUCHSCREEN_ADS7846
 	  To compile this driver as a module, choose M here: the
 	  module will be called ads7846.
 
+         config SWEEP2SLEEP
+        tristate "Sweep to put device to sleep"
+        default y
+        help
+          Say Y here to support sweep2sleep
+
 config TOUCHSCREEN_AD7877
 	tristate "AD7877 based touchscreens"
 	depends on SPI_MASTER
@@ -1262,5 +1268,8 @@ config TOUCHSCREEN_ST
 source "drivers/input/touchscreen/st/Kconfig"
 source "drivers/input/touchscreen/gt9xx_mmi/Kconfig"
 source "drivers/input/touchscreen/nova_mmi/Kconfig"
+
+config WAKE_GESTURES
+	bool "wake gestures"
 					
 endif
