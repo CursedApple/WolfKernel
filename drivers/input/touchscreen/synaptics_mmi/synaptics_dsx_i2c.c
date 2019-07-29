@@ -87,15 +87,6 @@
 
 #define tk_debug(fmt, args...)
 
-#ifdef CONFIG_WAKE_GESTURES
-#include <linux/wake_gestures.h>
-static bool suspended = false;
-bool scr_suspended(void)
-{
-	return suspended;
-}
-#endif
-
 #ifdef CONFIG_MMI_HALL_NOTIFICATIONS
 #include <linux/mmi_hall_notifier.h>
 
@@ -2750,11 +2741,6 @@ static void synaptics_dsx_apply_modifiers(
 				wakeup = true;
 			if (!sleep && (patch->flags & FLAG_POWER_SLEEP))
 				sleep = true;
-#ifdef CONFIG_WAKE_GESTURES
-			if (!wakeup && (s2w_switch || dt2w_switch))
-				wakeup = true;
-#endif
-
 			/* finally apply patch */
 			synaptics_dsx_patch_function(rmi4_data,
 				synaptics_cfg_regs[i].f_number, patch);
@@ -4421,9 +4407,6 @@ static int synaptics_rmi4_f12_abs_report(struct synaptics_rmi4_data *rmi4_data,
 			&rmi4_data->f12_data_registers_ptr->regs[F12_D1_IDX];
 
 	if (atomic_read(&rmi4_data->panel_off_flag))
-#ifdef CONFIG_WAKE_GESTURES
-			if (!s2w_switch && !dt2w_switch)
-#endif
 		return 0;
 
 	fingers_to_process = rmi4_data->num_of_fingers;
@@ -4509,11 +4492,6 @@ static int synaptics_rmi4_f12_abs_report(struct synaptics_rmi4_data *rmi4_data,
 						"w = %d\n",
 						__func__, finger,
 						x, y, p, w);
-
-#ifdef CONFIG_WAKE_GESTURES
-			 if (suspended)
-							 x += 5000;
-#endif
 
 			input_report_abs(rmi4_data->input_dev,
 					ABS_MT_POSITION_X, x);
@@ -4998,14 +4976,8 @@ static void synaptics_rmi4_report_touch(struct synaptics_rmi4_data *rmi4_data,
 
 	case SYNAPTICS_RMI4_F12:
 		if (rmi4_data->suspend_is_wakeable) {
-#ifdef CONFIG_WAKE_GESTURES
-						            if (!s2w_switch && !dt2w_switch) {
-#endif
-							                  synaptics_rmi4_f12_wakeup_gesture(rmi4_data, fhandler);
-							                  break;
-#ifdef CONFIG_WAKE_GESTURES
-						            }
-#endif
+			synaptics_rmi4_f12_wakeup_gesture(rmi4_data, fhandler);
+			break;
 		}
 
 		touch_count_2d = synaptics_rmi4_f12_abs_report(rmi4_data,
@@ -7662,10 +7634,6 @@ static int synaptics_rmi4_suspend(struct device *dev)
 			rmi4_data->board;
 	static char ud_stats[PAGE_SIZE];
 
-#ifdef CONFIG_WAKE_GESTURES
-	suspended = true;
-#endif
-
 	if (atomic_cmpxchg(&rmi4_data->touch_stopped, 0, 1) == 1)
 		return 0;
 
@@ -7731,10 +7699,6 @@ static int synaptics_rmi4_resume(struct device *dev)
 					i2c_get_clientdata(to_i2c_client(dev));
 	const struct synaptics_dsx_platform_data *platform_data =
 					rmi4_data->board;
-
-#ifdef CONFIG_WAKE_GESTURES
-	suspended = false;
-#endif
 
 	if (atomic_cmpxchg(&rmi4_data->touch_stopped, 1, 0) == 0)
 		return 0;
