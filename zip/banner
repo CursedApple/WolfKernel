@@ -4,3 +4,6 @@
 ~~~/---/~~~~~~~~
 
 ~by-seba_3567~
+
+adb pull /sys/fs/selinux/policy
+adb logcat -b all -d | audit2allow -p policy
