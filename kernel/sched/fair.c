@@ -19,6 +19,9 @@
  *
  *  Adaptive scheduling granularity, math enhancements by Peter Zijlstra
  *  Copyright (C) 2007 Red Hat, Inc., Peter Zijlstra
+ * 
+ * latency improvements for android Q base on google sources
+ *  by seba_3567
  */
 
 #include <linux/latencytop.h>
