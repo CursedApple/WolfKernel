@@ -1,4 +1,4 @@
-/* Copyright (c) 2012-2017, 2019, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2012-2019, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -413,8 +413,13 @@ int q6core_get_service_version(uint32_t service_id,
 
 	ret = q6core_get_fwk_version_size(service_id);
 	if (ret < 0) {
-		pr_err("%s: Failed to get service size for service id %d with error %d\n",
-		       __func__, service_id, ret);
+		if (ret == -EOPNOTSUPP) {
+			pr_debug("%s: Failed to get service size for service id %d with error %d\n",
+				__func__, service_id, ret);
+		} else {
+			pr_err("%s: Failed to get service size for service id %d with error %d\n",
+				__func__, service_id, ret);
+		}
 		return ret;
 	}
 

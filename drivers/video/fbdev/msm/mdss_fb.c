@@ -56,9 +56,7 @@
 #include "mdss_smmu.h"
 #include "mdss_mdp.h"
 
-#ifdef CONFIG_KLAPSE
-#include "klapse.h"
-#endif
+#include "mdss_livedisplay.h"
 
 #ifdef CONFIG_FB_MSM_TRIPLE_BUFFER
 #define MDSS_FB_NUM 3
@@ -105,12 +103,6 @@ static ssize_t _name##_store(struct device *dev, \
 	ret = mdss_fb_set_param(dev, _id, buf); \
 	return ret ? ret : count; \
 }
-
-#define MDSS_BRIGHT_TO_BL_DIM(out, v) do {\
-			out = (12*v*v+1393*v+3060)/4465;\
-			} while (0)
-bool backlight_dimmer = false;
-module_param(backlight_dimmer, bool, 0644);
 
 static struct fb_info *fbi_list[MAX_FBI_LIST];
 static int fbi_list_index;
@@ -317,14 +309,10 @@ static void mdss_fb_set_bl_brightness(struct led_classdev *led_cdev,
 	if (value > mfd->panel_info->brightness_max)
 		value = mfd->panel_info->brightness_max;
 
-		if (backlight_dimmer) {
-			MDSS_BRIGHT_TO_BL_DIM(bl_lvl, value);
-		} else {
-			/* This maps android backlight level 0 to 255 into
-			   driver backlight level 0 to bl_max with rounding */
-			MDSS_BRIGHT_TO_BL(bl_lvl, value, mfd->panel_info->bl_max,
-						mfd->panel_info->brightness_max);
-		}
+	/* This maps android backlight level 0 to 255 into
+	   driver backlight level 0 to bl_max with rounding */
+	MDSS_BRIGHT_TO_BL(bl_lvl, value, mfd->panel_info->bl_max,
+				mfd->panel_info->brightness_max);
 
 	if (!bl_lvl && value)
 		bl_lvl = 1;
@@ -336,10 +324,6 @@ static void mdss_fb_set_bl_brightness(struct led_classdev *led_cdev,
 		mutex_unlock(&mfd->bl_lock);
 	}
 	mfd->bl_level_usr = bl_lvl;
-
-#ifdef CONFIG_KLAPSE
-	set_rgb_slider(bl_lvl);
-#endif
 }
 
 static enum led_brightness mdss_fb_get_bl_brightness(
@@ -1319,7 +1303,7 @@ static int mdss_fb_create_sysfs(struct msm_fb_data_type *mfd)
 		pr_err("panel parameter sysfs creation failed, rc=%d\n", rc);
 
 err:
-	return rc;
+	return mdss_livedisplay_create_sysfs(mfd);
 }
 
 static void mdss_fb_remove_sysfs(struct msm_fb_data_type *mfd)
