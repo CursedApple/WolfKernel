@@ -139,7 +139,7 @@ echo -e "$ZIPNAME zip can be found at $FINAL_ZIP";
 if [[ ${success} == true ]]; then
     echo -e "UPLOAD SUCCESSFUL";
 
-message="Wolf Kernel - nonEAS Version."
+message="Wolf Kernel - Debug Version."
 compatible="AOSP PIE/OREO"
 time="Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) seconds."
 
