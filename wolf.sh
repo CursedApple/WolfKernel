@@ -32,7 +32,7 @@ fi
 
 export DEVICE=$1;
 if [[ -z ${DEVICE} ]]; then
-    export DEVICE="X00T";
+    export DEVICE="LAKE";
 fi
 
 mkdir -p ${KERNELDIR}/aroma
