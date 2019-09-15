@@ -57,7 +57,7 @@ export CLANG_TRIPLE=aarch64-linux-gnu-
 export CLANG_LD_PATH=$HOME/clang/lib
 export LLVM_DIS=$HOME/clang/bin/llvm-dis
 
-export MAKE_TYPE="Treble"
+export MAKE_TYPE="ANDROID-10"
 
 if [[ -z "${JOBS}" ]]; then
     export JOBS="$(nproc --all)";
@@ -70,7 +70,7 @@ export TCVERSION1="$(${CROSS_COMPILE}gcc --version | head -1 |\
 awk -F '(' '{print $2}' | awk '{print tolower($1)}')"
 export TCVERSION2="$(${CROSS_COMPILE}gcc --version | head -1 |\
 awk -F ')' '{print $2}' | awk '{print tolower($1)}')"
-export ZIPNAME="${KERNELNAME}-7.x+-${DEVICE}-$(date +%Y%m%d-%H%M).zip"
+export ZIPNAME="${KERNELNAME}-v2-${DEVICE}-$(date +%Y%m%d-%H%M).zip"
 export FINAL_ZIP="${ZIP_DIR}/${ZIPNAME}"
 
 [ ! -d "${ZIP_DIR}" ] && mkdir -pv ${ZIP_DIR}
@@ -100,7 +100,7 @@ if [[ "$@" =~ "clean" ]]; then
 fi
 
 curl -s -X POST https://api.telegram.org/bot$BOT_API_KEY/sendMessage -d text="#Awoo 
-Build Scheduled for $KERNELNAME Kernel " -d chat_id=$CHAT_ID
+android 10 based Build Scheduled for $KERNELNAME Kernel " -d chat_id=$CHAT_ID
 ${MAKE} $DEFCONFIG;
 START=$(date +"%s");
 echo -e "Using ${JOBS} threads to compile"
@@ -139,8 +139,8 @@ echo -e "$ZIPNAME zip can be found at $FINAL_ZIP";
 if [[ ${success} == true ]]; then
     echo -e "UPLOAD SUCCESSFUL";
 
-message="Wolf Kernel - nonEAS Version."
-compatible="AOSP PIE/OREO"
+message="Wolf Kernel - Android 10 Version."
+compatible="AOSP Q only"
 time="Build took $(($DIFF / 60)) minute(s) and $(($DIFF % 60)) seconds."
 
 # curl -s -X POST https://api.telegram.org/bot$BOT_API_KEY/sendMessage -d text="$(git log --pretty=format:'%h : %s' -5)" -d chat_id=$CHAT_ID
@@ -150,11 +150,11 @@ $time" https://api.telegram.org/bot$BOT_API_KEY/sendDocument
 
 curl -s -X POST https://api.telegram.org/bot$BOT_API_KEY/sendMessage -d text="
 ♔♔♔♔♔♔♔BUILD-DETAILS♔♔♔♔♔♔♔
-🖋️ Author     : vvrRockStar
-🛠️ Make-Type  : $MAKE_TYPE
-🗒️ Buld-Type  : 60Hz
+🖋️ Author      : thisisVVR
+🛠️ Make-Type   : $MAKE_TYPE
+🗒️ Buld-Type   : 60Hz
 ⌚ Build-Time : $time
-🗒️ Zip-Name   : $ZIPNAME
+🗒️ IMPORTANT   : DOES NOT Work with AOSP PIE / OREO
 "  -d chat_id="585730571"
 
 
